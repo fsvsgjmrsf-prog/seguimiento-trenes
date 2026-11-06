@@ -50,7 +50,8 @@ def camino(osm):
         t = w.get("tags", {})
         if t.get("service") in ("yard", "siding", "spur", "crossover"):
             continue
-        av = t.get("highspeed") == "yes" or (t.get("maxspeed", "0").isdigit() and int(t["maxspeed"]) >= 200)
+        vmax = t.get("maxspeed", "")
+        av = t.get("highspeed") == "yes" or (vmax.isdigit() and int(vmax) >= 200)
         coste = 1.0 if av else 2.5
         ns = [n for n in w["nodes"] if n in nodos]
         for a, b in zip(ns, ns[1:]):
