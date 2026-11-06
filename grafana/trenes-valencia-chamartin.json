@@ -107,8 +107,14 @@
               "method": "GET",
               "data": ""
             },
-            "root_selector": "[trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].codComercial]",
-            "columns": [],
+            "root_selector": "[trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial}]",
+            "columns": [
+              {
+                "selector": "tren",
+                "text": "tren",
+                "type": "string"
+              }
+            ],
             "filters": []
           },
           "query": "",
@@ -149,7 +155,13 @@
               "data": ""
             },
             "root_selector": "( $r := trenes[codComercial = '${tren}'].ultRetraso; [{\"retraso\": $r ? $number($r) : 0}] )",
-            "columns": [],
+            "columns": [
+              {
+                "selector": "retraso",
+                "text": "retraso",
+                "type": "number"
+              }
+            ],
             "filters": []
           },
           "query": "",
@@ -210,7 +222,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
           "columns": [
             {
               "selector": "tren",
@@ -323,8 +335,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
               },
               {
                 "color": "#EAB839",
@@ -512,7 +528,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
           "columns": [],
           "filters": []
         }
@@ -529,7 +545,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "retraso"
+              "options": "Retraso"
             },
             "properties": [
               {
@@ -538,8 +554,12 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
+                      "color": "#8e8e8e",
                       "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": -1000
                     },
                     {
                       "color": "#EAB839",
@@ -564,26 +584,42 @@
                 "value": "m"
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "^(lat|lon|actualizado)$"
-            },
-            "properties": [
-              {
-                "id": "custom.hidden",
-                "value": true
-              }
-            ]
           }
         ]
       },
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "lat": true,
+              "lon": true,
+              "actualizado": true
+            },
+            "indexByName": {
+              "tren": 0,
+              "tipo": 1,
+              "sentido": 2,
+              "retraso": 3,
+              "proxima": 4,
+              "hora_proxima": 5
+            },
+            "renameByName": {
+              "tren": "Tren",
+              "tipo": "Tipo",
+              "sentido": "Sentido",
+              "retraso": "Retraso",
+              "proxima": "Próxima estación",
+              "hora_proxima": "Llegada prevista"
+            }
+          }
+        }
+      ],
       "options": {
         "showHeader": true,
         "sortBy": [
           {
-            "displayName": "retraso",
+            "displayName": "Retraso",
             "desc": true
           }
         ],
@@ -653,8 +689,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
               },
               {
                 "color": "#EAB839",
@@ -844,8 +884,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -953,8 +997,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -1062,8 +1110,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
               },
               {
                 "color": "#EAB839",
@@ -1171,8 +1223,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
               },
               {
                 "color": "#EAB839",
@@ -1475,8 +1531,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -1574,8 +1634,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
               },
               {
                 "color": "#EAB839",
@@ -1673,8 +1737,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
               },
               {
                 "color": "#EAB839",
@@ -1774,8 +1842,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
               },
               {
                 "color": "#EAB839",
@@ -1840,12 +1912,12 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$map([$distinct($l.fecha)], function($f){ ( $d := $l[fecha = $f]; {\"dia\": $f & \"T12:00:00+01:00\", \"trenes\": $count($d), \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })] )",
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$map([$distinct($l.fecha)], function($f){ ( $d := $l[fecha = $f]; {\"dia\": $f & \"T12:00:00+01:00\", \"fecha\": $substring($f, 8, 2) & \"/\" & $substring($f, 5, 2), \"trenes\": $count($d), \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })] )",
           "columns": [
             {
-              "selector": "dia",
+              "selector": "fecha",
               "text": "día",
-              "type": "timestamp"
+              "type": "string"
             },
             {
               "selector": "puntual",
@@ -1879,8 +1951,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "#8e8e8e",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -1978,8 +2054,12 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
+                      "color": "#8e8e8e",
                       "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": -1000
                     },
                     {
                       "color": "#EAB839",
@@ -2017,8 +2097,12 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
+                      "color": "#8e8e8e",
                       "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": -1000
                     },
                     {
                       "color": "#EAB839",
@@ -2060,8 +2144,12 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "red",
+                      "color": "#8e8e8e",
                       "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
                     },
                     {
                       "color": "#EAB839",
@@ -2120,7 +2208,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$map([$distinct($l.fecha)], function($f){ ( $d := $l[fecha = $f]; {\"dia\": $f & \"T12:00:00+01:00\", \"trenes\": $count($d), \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })] )",
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$map([$distinct($l.fecha)], function($f){ ( $d := $l[fecha = $f]; {\"dia\": $f & \"T12:00:00+01:00\", \"fecha\": $substring($f, 8, 2) & \"/\" & $substring($f, 5, 2), \"trenes\": $count($d), \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })] )",
           "columns": [
             {
               "selector": "dia",
@@ -2194,8 +2282,12 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
+                      "color": "#8e8e8e",
                       "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": -1000
                     },
                     {
                       "color": "#EAB839",
@@ -2233,8 +2325,12 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
+                      "color": "#8e8e8e",
                       "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": -1000
                     },
                     {
                       "color": "#EAB839",
