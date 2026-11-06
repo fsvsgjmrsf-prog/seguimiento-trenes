@@ -1,6 +1,6 @@
 # 🚄 Puntualidad Valencia J. Sorolla ⇄ Madrid Chamartín
 
-Última actualización: **2026-11-06T21:30+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.
+Última actualización: **2026-11-06T21:45+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.
 
 El retraso de cada tren es el último que publica Renfe antes de llegar a la estación de destino.
 
@@ -22,14 +22,14 @@ Aún hay pocos datos en tu franja para sacar conclusiones.
 | Sentido | Trenes | Puntual (≤5 min) | 6–15 min | 16–30 min | 31–60 min | Más de 60 min | Retraso medio | Máximo |
 |---|---|---|---|---|---|---|---|---|
 | Madrid Chamartín → Valencia J. Sorolla | 4 | 100 % | 0 % | 0 % | 0 % | 0 % | 0.5 min | 1 min |
-| Valencia J. Sorolla → Madrid Chamartín | 4 | 100 % | 0 % | 0 % | 0 % | 0 % | -2.5 min | 2 min |
-| **Total** | 8 | 100 % | 0 % | 0 % | 0 % | 0 % | -1.0 min | 2 min |
+| Valencia J. Sorolla → Madrid Chamartín | 5 | 100 % | 0 % | 0 % | 0 % | 0 % | -2.8 min | 2 min |
+| **Total** | 9 | 100 % | 0 % | 0 % | 0 % | 0 % | -1.3 min | 2 min |
 
 ## Día a día
 
 | Fecha | Trenes | Puntuales | Retraso medio | Peor tren |
 |---|---|---|---|---|
-| 2026-11-06 | 8 | 100 % | -1.0 min | AVLO 05095 (2 min) |
+| 2026-11-06 | 9 | 100 % | -1.3 min | AVLO 05095 (2 min) |
 
 ## Por tren (busca aquí el tuyo)
 
@@ -52,13 +52,13 @@ El número de tren se repite cada día, así que puedes ver cómo suele ir el qu
 | 09:32 | 11:38 | AVLO 05095 | 1 | 100 % | 2.0 min | 2 min |
 | 17:42 | 19:38 | AVE 05171 | 1 | 100 % | -11.0 min | -11 min |
 | 18:32 | 20:38 | AVE 05181 | 1 | 100 % | 2.0 min | 2 min |
+| 19:42 | 21:38 | AVE 05191 | 1 | 100 % | -4.0 min | -4 min |
 
 ## Ahora mismo en ruta
 
 | Tren | Sentido | Salida | Retraso actual |
 |---|---|---|---|
-| AVE 05191 | Valencia J. Sorolla → Madrid Chamartín | 19:42 | -4 min |
 | AVE 05200 | Madrid Chamartín → Valencia J. Sorolla | 20:30 | -4 min |
-| AVE 05210 | Madrid Chamartín → Valencia J. Sorolla | 21:00 | 3 min |
-| AVLO 05215 | Valencia J. Sorolla → Madrid Chamartín | 21:12 | 0 min |
+| AVE 05210 | Madrid Chamartín → Valencia J. Sorolla | 21:00 | 2 min |
+| AVLO 05215 | Valencia J. Sorolla → Madrid Chamartín | 21:12 | 1 min |
 
