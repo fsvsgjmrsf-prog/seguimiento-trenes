@@ -77,32 +77,7 @@
   "editable": true,
   "graphTooltip": 0,
   "templating": {
-    "list": [
-      {
-        "type": "textbox",
-        "name": "tren",
-        "label": "Tren (pulsa uno en la tabla o el mapa)",
-        "query": "",
-        "current": {
-          "text": "",
-          "value": ""
-        },
-        "options": [],
-        "hide": 0
-      },
-      {
-        "type": "textbox",
-        "name": "retraso",
-        "label": "Retraso",
-        "query": "0",
-        "current": {
-          "text": "0",
-          "value": "0"
-        },
-        "options": [],
-        "hide": 2
-      }
-    ]
+    "list": []
   },
   "annotations": {
     "list": []
@@ -282,25 +257,7 @@
             "mode": "thresholds"
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "tren"
-            },
-            "properties": [
-              {
-                "id": "links",
-                "value": [
-                  {
-                    "title": "Ver tiempos de paso de este tren",
-                    "url": "/d/trenes-vlc-cha/trenes-valencia-chamartin?var-tren=${__value.raw}&var-retraso=${__data.fields[3]}&${__url_time_range}"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "options": {
         "view": {
@@ -524,23 +481,6 @@
                 "value": "m"
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Tren"
-            },
-            "properties": [
-              {
-                "id": "links",
-                "value": [
-                  {
-                    "title": "Ver tiempos de paso de este tren",
-                    "url": "/d/trenes-vlc-cha/trenes-valencia-chamartin?var-tren=${__value.raw}&var-retraso=${__data.fields[3]}&${__url_time_range}"
-                  }
-                ]
-              }
-            ]
           }
         ]
       },
@@ -586,7 +526,7 @@
     {
       "id": 4,
       "type": "row",
-      "title": "Tiempos de paso del tren ${tren}",
+      "title": "Tiempos de paso de los trenes en circulación",
       "collapsed": false,
       "gridPos": {
         "x": 0,
@@ -598,101 +538,13 @@
     },
     {
       "id": 5,
-      "type": "stat",
-      "title": "Retraso actual del tren ${tren}",
+      "type": "table",
+      "title": "Paradas: hora prevista y estimada con el retraso actual",
       "gridPos": {
         "x": 0,
         "y": 17,
-        "w": 5,
-        "h": 8
-      },
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_INFINITY}"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_INFINITY}"
-          },
-          "type": "json",
-          "source": "url",
-          "parser": "backend",
-          "format": "table",
-          "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
-          "url_options": {
-            "method": "GET",
-            "data": ""
-          },
-          "root_selector": "[trenes[codComercial = '${tren}'].{\"retraso\": $number(ultRetraso)}]",
-          "columns": [
-            {
-              "selector": "retraso",
-              "text": "retraso",
-              "type": "number"
-            }
-          ],
-          "filters": []
-        }
-      ],
-      "description": "Pulsa un tren en la tabla «Trenes del trayecto ahora» o en el mapa, o escribe su número arriba en «Tren».",
-      "fieldConfig": {
-        "defaults": {
-          "unit": "m",
-          "decimals": 1,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#8e8e8e",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": -1000
-              },
-              {
-                "color": "#EAB839",
-                "value": 6
-              },
-              {
-                "color": "red",
-                "value": 16
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          },
-          "noValue": "—"
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^retraso$/",
-          "values": false
-        },
-        "colorMode": "background",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center"
-      }
-    },
-    {
-      "id": 6,
-      "type": "table",
-      "title": "Paradas y horas del tren ${tren}",
-      "gridPos": {
-        "x": 5,
-        "y": 17,
-        "w": 19,
-        "h": 8
+        "w": 24,
+        "h": 10
       },
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
@@ -714,45 +566,221 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $r := '${retraso}' = '' ? 0 : $number('${retraso}'); $min := function($h){ $number($substring($h,0,2)) * 60 + $number($substring($h,3,2)) }; $fmt := function($m){ ( $m := ($m % 1440 + 1440) % 1440; $pad := function($x){ $x < 10 ? \"0\" & $string($x) : $string($x) }; $pad($floor($m / 60)) & \":\" & $pad($m % 60) ) }; $t := trenes[idTren = '${tren}']; [$t.estaciones.{\"estacion\": $lookup($n, p) ? $lookup($n, p) : p, \"llegada\": h, \"salida\": hs, \"estimada\": $fmt($min(h) + ($r > 0 ? $r : 0))}] )",
-          "columns": [],
+          "root_selector": "( $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $d := $substring($now(), 0, 10); [trenes['03216' in estaciones.p and '17000' in estaciones.p].( $t := idTren; estaciones.{\"tren\": $t, \"estacion\": $lookup($n, p) ? $lookup($n, p) : p, \"prevista\": $toMillis($d & \"T\" & h & \":00+01:00\")} )] )",
+          "columns": [
+            {
+              "selector": "tren",
+              "text": "tren",
+              "type": "string"
+            },
+            {
+              "selector": "estacion",
+              "text": "estacion",
+              "type": "string"
+            },
+            {
+              "selector": "prevista",
+              "text": "prevista",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
+          "columns": [
+            {
+              "selector": "tren",
+              "text": "tren",
+              "type": "string"
+            },
+            {
+              "selector": "tipo",
+              "text": "tipo",
+              "type": "string"
+            },
+            {
+              "selector": "sentido",
+              "text": "sentido",
+              "type": "string"
+            },
+            {
+              "selector": "retraso",
+              "text": "retraso",
+              "type": "number"
+            }
+          ],
           "filters": []
         }
       ],
-      "description": "Hora prevista de cada parada y la estimada sumando el retraso actual.",
+      "description": "Cada parada de los trenes del trayecto que circulan ahora. Estimada = prevista + retraso actual. Usa el filtro de la columna Tren para ver uno solo.",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "tren",
+            "mode": "inner"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "binary",
+            "binary": {
+              "left": "retraso",
+              "operator": "*",
+              "right": "60000"
+            },
+            "alias": "retraso_ms",
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "binary",
+            "binary": {
+              "left": "prevista",
+              "operator": "+",
+              "right": "retraso_ms"
+            },
+            "alias": "estimada",
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "retraso_ms": true
+            },
+            "indexByName": {
+              "tren": 0,
+              "tipo": 1,
+              "sentido": 2,
+              "estacion": 3,
+              "prevista": 4,
+              "estimada": 5,
+              "retraso": 6
+            },
+            "renameByName": {
+              "tren": "Tren",
+              "tipo": "Tipo",
+              "sentido": "Sentido",
+              "estacion": "Estación",
+              "prevista": "Hora prevista",
+              "estimada": "Hora estimada",
+              "retraso": "Retraso"
+            }
+          }
+        }
+      ],
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "auto"
+            "align": "auto",
+            "filterable": true
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "^Hora (prevista|estimada)$"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:HH:mm"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Retraso"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 6
+                    },
+                    {
+                      "color": "red",
+                      "value": 16
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "m"
+              }
+            ]
+          }
+        ]
       },
       "options": {
         "showHeader": true,
-        "cellHeight": "sm"
+        "cellHeight": "sm",
+        "sortBy": [
+          {
+            "displayName": "Tren",
+            "desc": false
+          }
+        ]
       }
     },
     {
-      "id": 7,
+      "id": 6,
       "type": "row",
       "title": "Tu viaje: sábado 21/11, Iryo 13:57 Valencia → Madrid Chamartín",
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 25,
+        "y": 27,
         "w": 24,
         "h": 1
       },
       "panels": []
     },
     {
-      "id": 8,
+      "id": 7,
       "type": "text",
       "title": "Cómo leer esta fila",
       "gridPos": {
         "x": 0,
-        "y": 26,
+        "y": 28,
         "w": 6,
         "h": 7
       },
@@ -767,12 +795,12 @@
       }
     },
     {
-      "id": 9,
+      "id": 8,
       "type": "stat",
       "title": "Puntuales en tu franja",
       "gridPos": {
         "x": 6,
-        "y": 26,
+        "y": 28,
         "w": 4,
         "h": 7
       },
@@ -880,12 +908,12 @@
       }
     },
     {
-      "id": 10,
+      "id": 9,
       "type": "stat",
       "title": "Puntuales en sábado",
       "gridPos": {
         "x": 10,
-        "y": 26,
+        "y": 28,
         "w": 4,
         "h": 7
       },
@@ -993,12 +1021,12 @@
       }
     },
     {
-      "id": 11,
+      "id": 10,
       "type": "stat",
       "title": "Retraso medio",
       "gridPos": {
         "x": 14,
-        "y": 26,
+        "y": 28,
         "w": 3,
         "h": 7
       },
@@ -1106,12 +1134,12 @@
       }
     },
     {
-      "id": 12,
+      "id": 11,
       "type": "stat",
       "title": "Peor retraso",
       "gridPos": {
         "x": 17,
-        "y": 26,
+        "y": 28,
         "w": 3,
         "h": 7
       },
@@ -1219,12 +1247,12 @@
       }
     },
     {
-      "id": 13,
+      "id": 12,
       "type": "stat",
       "title": "Trenes registrados",
       "gridPos": {
         "x": 20,
-        "y": 26,
+        "y": 28,
         "w": 4,
         "h": 7
       },
@@ -1320,25 +1348,25 @@
       }
     },
     {
-      "id": 14,
+      "id": 13,
       "type": "row",
       "title": "Historial del seguimiento",
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 33,
+        "y": 35,
         "w": 24,
         "h": 1
       },
       "panels": []
     },
     {
-      "id": 15,
+      "id": 14,
       "type": "stat",
       "title": "Trenes llegados",
       "gridPos": {
         "x": 0,
-        "y": 34,
+        "y": 36,
         "w": 6,
         "h": 5
       },
@@ -1424,12 +1452,12 @@
       }
     },
     {
-      "id": 16,
+      "id": 15,
       "type": "stat",
       "title": "Puntuales",
       "gridPos": {
         "x": 6,
-        "y": 34,
+        "y": 36,
         "w": 6,
         "h": 5
       },
@@ -1527,12 +1555,12 @@
       }
     },
     {
-      "id": 17,
+      "id": 16,
       "type": "stat",
       "title": "Retraso medio",
       "gridPos": {
         "x": 12,
-        "y": 34,
+        "y": 36,
         "w": 6,
         "h": 5
       },
@@ -1630,12 +1658,12 @@
       }
     },
     {
-      "id": 18,
+      "id": 17,
       "type": "stat",
       "title": "Peor retraso",
       "gridPos": {
         "x": 18,
-        "y": 34,
+        "y": 36,
         "w": 6,
         "h": 5
       },
@@ -1733,12 +1761,12 @@
       }
     },
     {
-      "id": 19,
+      "id": 18,
       "type": "timeseries",
       "title": "Retraso de cada tren al llegar",
       "gridPos": {
         "x": 0,
-        "y": 39,
+        "y": 41,
         "w": 14,
         "h": 10
       },
@@ -1840,12 +1868,12 @@
       }
     },
     {
-      "id": 20,
+      "id": 19,
       "type": "barchart",
       "title": "Puntualidad por día",
       "gridPos": {
         "x": 14,
-        "y": 39,
+        "y": 41,
         "w": 10,
         "h": 10
       },
@@ -1958,12 +1986,12 @@
       }
     },
     {
-      "id": 21,
+      "id": 20,
       "type": "table",
       "title": "Por tren (busca aquí cómo suele ir cada horario)",
       "gridPos": {
         "x": 0,
-        "y": 49,
+        "y": 51,
         "w": 16,
         "h": 10
       },
@@ -2136,12 +2164,12 @@
       }
     },
     {
-      "id": 22,
+      "id": 21,
       "type": "table",
       "title": "Día a día",
       "gridPos": {
         "x": 16,
-        "y": 49,
+        "y": 51,
         "w": 8,
         "h": 10
       },

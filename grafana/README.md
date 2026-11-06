@@ -4,7 +4,7 @@
 
 - **Mapa en directo** con el trazado de la línea, las estaciones y cada tren en su posición GPS, coloreado por retraso.
 - **Trenes del trayecto ahora**, con su retraso actual.
-- **Tiempos de paso** del tren elegido que pulses en la tabla o el mapa (o cuyo número escribas en «Tren»): hora prevista y estimada en cada parada.
+- **Tiempos de paso** de todos los trenes del trayecto en circulación: hora prevista y estimada (prevista + retraso actual) en cada parada. Filtra por tren con el embudo de la columna Tren.
 - **Tu viaje** (sábado 21/11, 13:57): puntualidad de los trenes de Renfe que salen de Valencia entre las 12:27 y las 15:27.
 - **Historial**: resumen, retraso de cada tren, puntualidad por día y tablas por tren y por día.
 
