@@ -172,7 +172,7 @@
           "source": "url",
           "parser": "backend",
           "format": "table",
-          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/main/grafana/trazado.json",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/trazado.json",
           "url_options": {
             "method": "GET",
             "data": ""
