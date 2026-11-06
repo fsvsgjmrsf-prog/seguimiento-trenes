@@ -1447,412 +1447,12 @@
     },
     {
       "id": 13,
-      "type": "stat",
-      "title": "Trenes llegados",
-      "gridPos": {
-        "x": 0,
-        "y": 39,
-        "w": 6,
-        "h": 5
-      },
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_INFINITY}"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_INFINITY}"
-          },
-          "type": "json",
-          "source": "url",
-          "parser": "backend",
-          "format": "table",
-          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
-          "url_options": {
-            "method": "GET",
-            "data": ""
-          },
-          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
-          "columns": [
-            {
-              "selector": "trenes",
-              "text": "trenes",
-              "type": "number"
-            },
-            {
-              "selector": "puntual",
-              "text": "puntual",
-              "type": "number"
-            },
-            {
-              "selector": "medio",
-              "text": "medio",
-              "type": "number"
-            },
-            {
-              "selector": "maximo",
-              "text": "maximo",
-              "type": "number"
-            }
-          ],
-          "filters": []
-        }
-      ],
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "decimals": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          },
-          "noValue": "—"
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^trenes$/",
-          "values": false
-        },
-        "colorMode": "background",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center"
-      }
-    },
-    {
-      "id": 14,
-      "type": "stat",
-      "title": "Puntuales",
-      "gridPos": {
-        "x": 6,
-        "y": 39,
-        "w": 6,
-        "h": 5
-      },
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_INFINITY}"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_INFINITY}"
-          },
-          "type": "json",
-          "source": "url",
-          "parser": "backend",
-          "format": "table",
-          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
-          "url_options": {
-            "method": "GET",
-            "data": ""
-          },
-          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
-          "columns": [
-            {
-              "selector": "trenes",
-              "text": "trenes",
-              "type": "number"
-            },
-            {
-              "selector": "puntual",
-              "text": "puntual",
-              "type": "number"
-            },
-            {
-              "selector": "medio",
-              "text": "medio",
-              "type": "number"
-            },
-            {
-              "selector": "maximo",
-              "text": "maximo",
-              "type": "number"
-            }
-          ],
-          "filters": []
-        }
-      ],
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "decimals": 1,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#8e8e8e",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "#EAB839",
-                "value": 70
-              },
-              {
-                "color": "green",
-                "value": 85
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          },
-          "noValue": "—"
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^puntual$/",
-          "values": false
-        },
-        "colorMode": "background",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center"
-      }
-    },
-    {
-      "id": 15,
-      "type": "stat",
-      "title": "Retraso medio",
-      "gridPos": {
-        "x": 12,
-        "y": 39,
-        "w": 6,
-        "h": 5
-      },
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_INFINITY}"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_INFINITY}"
-          },
-          "type": "json",
-          "source": "url",
-          "parser": "backend",
-          "format": "table",
-          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
-          "url_options": {
-            "method": "GET",
-            "data": ""
-          },
-          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
-          "columns": [
-            {
-              "selector": "trenes",
-              "text": "trenes",
-              "type": "number"
-            },
-            {
-              "selector": "puntual",
-              "text": "puntual",
-              "type": "number"
-            },
-            {
-              "selector": "medio",
-              "text": "medio",
-              "type": "number"
-            },
-            {
-              "selector": "maximo",
-              "text": "maximo",
-              "type": "number"
-            }
-          ],
-          "filters": []
-        }
-      ],
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "unit": "m",
-          "decimals": 1,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#8e8e8e",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": -1000
-              },
-              {
-                "color": "#EAB839",
-                "value": 6
-              },
-              {
-                "color": "red",
-                "value": 16
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          },
-          "noValue": "—"
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^medio$/",
-          "values": false
-        },
-        "colorMode": "background",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center"
-      }
-    },
-    {
-      "id": 16,
-      "type": "stat",
-      "title": "Peor retraso",
-      "gridPos": {
-        "x": 18,
-        "y": 39,
-        "w": 6,
-        "h": 5
-      },
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_INFINITY}"
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_INFINITY}"
-          },
-          "type": "json",
-          "source": "url",
-          "parser": "backend",
-          "format": "table",
-          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
-          "url_options": {
-            "method": "GET",
-            "data": ""
-          },
-          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
-          "columns": [
-            {
-              "selector": "trenes",
-              "text": "trenes",
-              "type": "number"
-            },
-            {
-              "selector": "puntual",
-              "text": "puntual",
-              "type": "number"
-            },
-            {
-              "selector": "medio",
-              "text": "medio",
-              "type": "number"
-            },
-            {
-              "selector": "maximo",
-              "text": "maximo",
-              "type": "number"
-            }
-          ],
-          "filters": []
-        }
-      ],
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "unit": "m",
-          "decimals": 1,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#8e8e8e",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": -1000
-              },
-              {
-                "color": "#EAB839",
-                "value": 6
-              },
-              {
-                "color": "red",
-                "value": 16
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          },
-          "noValue": "—"
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^maximo$/",
-          "values": false
-        },
-        "colorMode": "background",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center"
-      }
-    },
-    {
-      "id": 17,
       "type": "timeseries",
       "title": "Retraso de cada tren al llegar",
       "gridPos": {
         "x": 0,
-        "y": 44,
-        "w": 14,
+        "y": 39,
+        "w": 16,
         "h": 10
       },
       "datasource": {
@@ -1953,14 +1553,14 @@
       }
     },
     {
-      "id": 18,
+      "id": 14,
       "type": "barchart",
       "title": "Puntualidad por día",
       "gridPos": {
-        "x": 14,
-        "y": 44,
-        "w": 10,
-        "h": 10
+        "x": 16,
+        "y": 39,
+        "w": 8,
+        "h": 13
       },
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
@@ -2071,12 +1671,412 @@
       }
     },
     {
+      "id": 15,
+      "type": "stat",
+      "title": "Trenes llegados",
+      "gridPos": {
+        "x": 0,
+        "y": 49,
+        "w": 4,
+        "h": 3
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^trenes$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 16,
+      "type": "stat",
+      "title": "Puntuales",
+      "gridPos": {
+        "x": 4,
+        "y": 49,
+        "w": 4,
+        "h": 3
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#8e8e8e",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "green",
+                "value": 85
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^puntual$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 17,
+      "type": "stat",
+      "title": "Retraso medio",
+      "gridPos": {
+        "x": 8,
+        "y": 49,
+        "w": 4,
+        "h": 3
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "m",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#8e8e8e",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^medio$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 18,
+      "type": "stat",
+      "title": "Peor retraso",
+      "gridPos": {
+        "x": 12,
+        "y": 49,
+        "w": 4,
+        "h": 3
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "m",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#8e8e8e",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": -1000
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^maximo$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
       "id": 19,
       "type": "table",
       "title": "Por tren (busca aquí cómo suele ir cada horario)",
       "gridPos": {
         "x": 0,
-        "y": 54,
+        "y": 52,
         "w": 16,
         "h": 10
       },
@@ -2254,7 +2254,7 @@
       "title": "Día a día",
       "gridPos": {
         "x": 16,
-        "y": 54,
+        "y": 52,
         "w": 8,
         "h": 10
       },
