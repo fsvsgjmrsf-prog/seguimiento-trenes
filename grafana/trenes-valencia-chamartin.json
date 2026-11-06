@@ -1,0 +1,2277 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_INFINITY",
+      "label": "Infinity",
+      "description": "Fuente de datos del plugin Infinity",
+      "type": "datasource",
+      "pluginId": "yesoreyeram-infinity-datasource",
+      "pluginName": "Infinity"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.4.0"
+    },
+    {
+      "type": "datasource",
+      "id": "yesoreyeram-infinity-datasource",
+      "name": "Infinity",
+      "version": "2.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "geomap",
+      "name": "Geomap",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
+  "title": "Trenes Valencia–Chamartín",
+  "uid": "trenes-vlc-cha",
+  "tags": [
+    "trenes",
+    "renfe",
+    "puntualidad"
+  ],
+  "timezone": "Europe/Madrid",
+  "time": {
+    "from": "now-14d",
+    "to": "now+1d"
+  },
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "graphTooltip": 0,
+  "templating": {
+    "list": [
+      {
+        "name": "tren",
+        "label": "Tren",
+        "type": "query",
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "${DS_INFINITY}"
+        },
+        "hide": 0,
+        "refresh": 2,
+        "includeAll": false,
+        "multi": false,
+        "query": {
+          "queryType": "infinity",
+          "infinityQuery": {
+            "refId": "variable",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "${DS_INFINITY}"
+            },
+            "type": "json",
+            "source": "url",
+            "parser": "backend",
+            "format": "table",
+            "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
+            "url_options": {
+              "method": "GET",
+              "data": ""
+            },
+            "root_selector": "[trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].codComercial]",
+            "columns": [],
+            "filters": []
+          },
+          "query": "",
+          "refId": "variable"
+        },
+        "definition": "Infinity: tren",
+        "sort": 0,
+        "current": {},
+        "options": []
+      },
+      {
+        "name": "retraso",
+        "label": "Retraso",
+        "type": "query",
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "${DS_INFINITY}"
+        },
+        "hide": 2,
+        "refresh": 2,
+        "includeAll": false,
+        "multi": false,
+        "query": {
+          "queryType": "infinity",
+          "infinityQuery": {
+            "refId": "variable",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "${DS_INFINITY}"
+            },
+            "type": "json",
+            "source": "url",
+            "parser": "backend",
+            "format": "table",
+            "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
+            "url_options": {
+              "method": "GET",
+              "data": ""
+            },
+            "root_selector": "( $r := trenes[codComercial = '${tren}'].ultRetraso; [{\"retraso\": $r ? $number($r) : 0}] )",
+            "columns": [],
+            "filters": []
+          },
+          "query": "",
+          "refId": "variable"
+        },
+        "definition": "Infinity: retraso",
+        "sort": 0,
+        "current": {},
+        "options": []
+      }
+    ]
+  },
+  "annotations": {
+    "list": []
+  },
+  "description": "Estado en directo, mapa, tiempos de paso e historial de puntualidad de los trenes de Renfe entre Valencia J. Sorolla y Madrid Chamartín.",
+  "panels": [
+    {
+      "id": 1,
+      "type": "row",
+      "title": "Ahora en circulación",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 1
+      },
+      "panels": []
+    },
+    {
+      "id": 2,
+      "type": "geomap",
+      "title": "Mapa en directo: Valencia J. Sorolla ⇄ Madrid Chamartín",
+      "gridPos": {
+        "x": 0,
+        "y": 1,
+        "w": 15,
+        "h": 15
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
+          "columns": [
+            {
+              "selector": "tren",
+              "text": "tren",
+              "type": "string"
+            },
+            {
+              "selector": "tipo",
+              "text": "tipo",
+              "type": "string"
+            },
+            {
+              "selector": "sentido",
+              "text": "sentido",
+              "type": "string"
+            },
+            {
+              "selector": "retraso",
+              "text": "retraso",
+              "type": "number"
+            },
+            {
+              "selector": "lat",
+              "text": "lat",
+              "type": "number"
+            },
+            {
+              "selector": "lon",
+              "text": "lon",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://tiempo-real.renfe.com/renfe-visor/trenesConEstacionesLD.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $t := trenes[estaciones[0].p in ['03216','17000'] and estaciones[-1].p in ['03216','17000']][0]; [$t.secuencia.{\"lat\": lat, \"lon\": lon, \"punto\": c}] )",
+          "columns": [
+            {
+              "selector": "lat",
+              "text": "lat",
+              "type": "number"
+            },
+            {
+              "selector": "lon",
+              "text": "lon",
+              "type": "number"
+            },
+            {
+              "selector": "punto",
+              "text": "punto",
+              "type": "string"
+            }
+          ],
+          "filters": []
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://tiempo-real.renfe.com/renfe-visor/trenesConEstacionesLD.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $t := trenes[estaciones[0].p in ['03216','17000'] and estaciones[-1].p in ['03216','17000']][0]; $s := $t.secuencia; [$t.estaciones.( $p := p; $q := $s[c = $p][0]; {\"estacion\": $lookup($n, $p) ? $lookup($n, $p) : $p, \"lat\": $q.lat, \"lon\": $q.lon} )] )",
+          "columns": [
+            {
+              "selector": "estacion",
+              "text": "estacion",
+              "type": "string"
+            },
+            {
+              "selector": "lat",
+              "text": "lat",
+              "type": "number"
+            },
+            {
+              "selector": "lon",
+              "text": "lon",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "Posición GPS de los trenes de Renfe del trayecto (datos abiertos de Renfe, cada 15 s). Color: verde hasta 5 min, amarillo 6–15, rojo más de 15.",
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "view": {
+          "id": "coords",
+          "lat": 39.95,
+          "lon": -2.05,
+          "zoom": 7.2,
+          "allLayers": true
+        },
+        "controls": {
+          "showZoom": true,
+          "mouseWheelZoom": true,
+          "showAttribution": true
+        },
+        "basemap": {
+          "type": "default",
+          "name": "Mapa base",
+          "config": {}
+        },
+        "tooltip": {
+          "mode": "details"
+        },
+        "layers": [
+          {
+            "type": "markers",
+            "name": "Trazado",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 3
+                },
+                "color": {
+                  "fixed": "#8a8a8a"
+                },
+                "opacity": 0.7,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                }
+              },
+              "showLegend": false
+            },
+            "location": {
+              "mode": "coords",
+              "latitude": "lat",
+              "longitude": "lon"
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "B"
+            },
+            "tooltip": false
+          },
+          {
+            "type": "markers",
+            "name": "Estaciones",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 6
+                },
+                "color": {
+                  "fixed": "#cfcfcf"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "estacion",
+                  "fixed": ""
+                },
+                "textConfig": {
+                  "fontSize": 11,
+                  "offsetX": 8,
+                  "offsetY": -10,
+                  "textAlign": "left",
+                  "textBaseline": "middle"
+                }
+              },
+              "showLegend": false
+            },
+            "location": {
+              "mode": "coords",
+              "latitude": "lat",
+              "longitude": "lon"
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "C"
+            },
+            "tooltip": true
+          },
+          {
+            "type": "markers",
+            "name": "Trenes",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 11
+                },
+                "color": {
+                  "field": "retraso",
+                  "fixed": "green"
+                },
+                "opacity": 0.95,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                },
+                "text": {
+                  "mode": "field",
+                  "field": "tren",
+                  "fixed": ""
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 12,
+                  "offsetY": 0,
+                  "textAlign": "left",
+                  "textBaseline": "middle"
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "coords",
+              "latitude": "lat",
+              "longitude": "lon"
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "tooltip": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "type": "table",
+      "title": "Trenes del trayecto ahora",
+      "gridPos": {
+        "x": 15,
+        "y": 1,
+        "w": 9,
+        "h": 15
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
+          "columns": [],
+          "filters": []
+        }
+      ],
+      "description": "Retraso actual de cada tren de Renfe entre Valencia J. Sorolla y Madrid Chamartín.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "filterable": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "retraso"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 6
+                    },
+                    {
+                      "color": "red",
+                      "value": 16
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "m"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "^(lat|lon|actualizado)$"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "displayName": "retraso",
+            "desc": true
+          }
+        ],
+        "cellHeight": "sm"
+      }
+    },
+    {
+      "id": 4,
+      "type": "row",
+      "title": "Tiempos de paso del tren ${tren}",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 24,
+        "h": 1
+      },
+      "panels": []
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "Retraso actual del ${tren}",
+      "gridPos": {
+        "x": 0,
+        "y": 17,
+        "w": 5,
+        "h": 8
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "[trenes[codComercial = '${tren}'].{\"retraso\": $number(ultRetraso)}]",
+          "columns": [
+            {
+              "selector": "retraso",
+              "text": "retraso",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "Elige el tren arriba, en el desplegable «Tren».",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "m",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^retraso$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 6,
+      "type": "table",
+      "title": "Paradas y horas del ${tren}",
+      "gridPos": {
+        "x": 5,
+        "y": 17,
+        "w": 19,
+        "h": 8
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://tiempo-real.renfe.com/renfe-visor/trenesConEstacionesLD.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $r := '${retraso}' = '' ? 0 : $number('${retraso}'); $min := function($h){ $number($substring($h,0,2)) * 60 + $number($substring($h,3,2)) }; $fmt := function($m){ ( $m := ($m % 1440 + 1440) % 1440; $pad := function($x){ $x < 10 ? \"0\" & $string($x) : $string($x) }; $pad($floor($m / 60)) & \":\" & $pad($m % 60) ) }; $t := trenes[idTren = '${tren}']; [$t.estaciones.{\"estacion\": $lookup($n, p) ? $lookup($n, p) : p, \"llegada\": h, \"salida\": hs, \"estimada\": $fmt($min(h) + ($r > 0 ? $r : 0))}] )",
+          "columns": [],
+          "filters": []
+        }
+      ],
+      "description": "Hora prevista de cada parada y la estimada sumando el retraso actual.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm"
+      }
+    },
+    {
+      "id": 7,
+      "type": "row",
+      "title": "Tu viaje: sábado 21/11, Iryo 13:57 Valencia → Madrid Chamartín",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 25,
+        "w": 24,
+        "h": 1
+      },
+      "panels": []
+    },
+    {
+      "id": 8,
+      "type": "text",
+      "title": "Cómo leer esta fila",
+      "gridPos": {
+        "x": 0,
+        "y": 26,
+        "w": 6,
+        "h": 7
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [],
+      "options": {
+        "mode": "markdown",
+        "content": "Iryo no publica sus datos, pero usa **las mismas vías**. Aquí se miran los trenes de **Renfe** que salen de Valencia hacia Madrid **entre las 12:27 y las 15:27**.\n\n🟢 85 % o más puntuales: la línea va bien a esa hora.\n\n🟡 70–85 %: deja algo de margen.\n\n🔴 Menos del 70 %: deja un buen margen.\n\n*Puntual: 5 minutos o menos de retraso.*"
+      }
+    },
+    {
+      "id": 9,
+      "type": "stat",
+      "title": "Puntuales en tu franja",
+      "gridPos": {
+        "x": 6,
+        "y": 26,
+        "w": 4,
+        "h": 7
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)][$substring(sentido,0,8)='Valencia' and salida_prevista >= '12:27' and salida_prevista <= '15:27']; $s := $l[$fromMillis($toMillis(fecha & 'T12:00:00Z'), '[F1]') = '6']; $n := $count($l); $ns := $count($s); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null, \"sab_trenes\": $ns, \"sab_puntual\": $ns > 0 ? $round($count($s[retraso_final <= 5]) / $ns * 100, 1) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            },
+            {
+              "selector": "sab_trenes",
+              "text": "sab_trenes",
+              "type": "number"
+            },
+            {
+              "selector": "sab_puntual",
+              "text": "sab_puntual",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "green",
+                "value": 85
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^puntual$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 10,
+      "type": "stat",
+      "title": "Puntuales en sábado",
+      "gridPos": {
+        "x": 10,
+        "y": 26,
+        "w": 4,
+        "h": 7
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)][$substring(sentido,0,8)='Valencia' and salida_prevista >= '12:27' and salida_prevista <= '15:27']; $s := $l[$fromMillis($toMillis(fecha & 'T12:00:00Z'), '[F1]') = '6']; $n := $count($l); $ns := $count($s); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null, \"sab_trenes\": $ns, \"sab_puntual\": $ns > 0 ? $round($count($s[retraso_final <= 5]) / $ns * 100, 1) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            },
+            {
+              "selector": "sab_trenes",
+              "text": "sab_trenes",
+              "type": "number"
+            },
+            {
+              "selector": "sab_puntual",
+              "text": "sab_puntual",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "green",
+                "value": 85
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^sab_puntual$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 11,
+      "type": "stat",
+      "title": "Retraso medio",
+      "gridPos": {
+        "x": 14,
+        "y": 26,
+        "w": 3,
+        "h": 7
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)][$substring(sentido,0,8)='Valencia' and salida_prevista >= '12:27' and salida_prevista <= '15:27']; $s := $l[$fromMillis($toMillis(fecha & 'T12:00:00Z'), '[F1]') = '6']; $n := $count($l); $ns := $count($s); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null, \"sab_trenes\": $ns, \"sab_puntual\": $ns > 0 ? $round($count($s[retraso_final <= 5]) / $ns * 100, 1) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            },
+            {
+              "selector": "sab_trenes",
+              "text": "sab_trenes",
+              "type": "number"
+            },
+            {
+              "selector": "sab_puntual",
+              "text": "sab_puntual",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "m",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^medio$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 12,
+      "type": "stat",
+      "title": "Peor retraso",
+      "gridPos": {
+        "x": 17,
+        "y": 26,
+        "w": 3,
+        "h": 7
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)][$substring(sentido,0,8)='Valencia' and salida_prevista >= '12:27' and salida_prevista <= '15:27']; $s := $l[$fromMillis($toMillis(fecha & 'T12:00:00Z'), '[F1]') = '6']; $n := $count($l); $ns := $count($s); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null, \"sab_trenes\": $ns, \"sab_puntual\": $ns > 0 ? $round($count($s[retraso_final <= 5]) / $ns * 100, 1) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            },
+            {
+              "selector": "sab_trenes",
+              "text": "sab_trenes",
+              "type": "number"
+            },
+            {
+              "selector": "sab_puntual",
+              "text": "sab_puntual",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "m",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^maximo$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 13,
+      "type": "stat",
+      "title": "Trenes registrados",
+      "gridPos": {
+        "x": 20,
+        "y": 26,
+        "w": 4,
+        "h": 7
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)][$substring(sentido,0,8)='Valencia' and salida_prevista >= '12:27' and salida_prevista <= '15:27']; $s := $l[$fromMillis($toMillis(fecha & 'T12:00:00Z'), '[F1]') = '6']; $n := $count($l); $ns := $count($s); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null, \"sab_trenes\": $ns, \"sab_puntual\": $ns > 0 ? $round($count($s[retraso_final <= 5]) / $ns * 100, 1) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            },
+            {
+              "selector": "sab_trenes",
+              "text": "sab_trenes",
+              "type": "number"
+            },
+            {
+              "selector": "sab_puntual",
+              "text": "sab_puntual",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^trenes$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 14,
+      "type": "row",
+      "title": "Historial del seguimiento",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 33,
+        "w": 24,
+        "h": 1
+      },
+      "panels": []
+    },
+    {
+      "id": 15,
+      "type": "stat",
+      "title": "Trenes llegados",
+      "gridPos": {
+        "x": 0,
+        "y": 34,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^trenes$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 16,
+      "type": "stat",
+      "title": "Puntuales",
+      "gridPos": {
+        "x": 6,
+        "y": 34,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "green",
+                "value": 85
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^puntual$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 17,
+      "type": "stat",
+      "title": "Retraso medio",
+      "gridPos": {
+        "x": 12,
+        "y": 34,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "m",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^medio$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 18,
+      "type": "stat",
+      "title": "Peor retraso",
+      "gridPos": {
+        "x": 18,
+        "y": 34,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $n := $count($l); [{\"trenes\": $n, \"puntual\": $n > 0 ? $round($count($l[retraso_final <= 5]) / $n * 100, 1) : null, \"medio\": $n > 0 ? $round($average($l.retraso_final), 1) : null, \"maximo\": $n > 0 ? $max($l.retraso_final) : null}] )",
+          "columns": [
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "m",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "—"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^maximo$/",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 19,
+      "type": "timeseries",
+      "title": "Retraso de cada tren al llegar",
+      "gridPos": {
+        "x": 0,
+        "y": 39,
+        "w": 14,
+        "h": 10
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$l.{\"llegada\": fecha & \"T\" & (llegada_prevista != \"\" ? llegada_prevista : \"12:00\") & \":00+01:00\", \"retraso\": retraso_final, \"tren\": tipo & \" \" & tren, \"sentido\": sentido}] )",
+          "columns": [
+            {
+              "selector": "llegada",
+              "text": "llegada",
+              "type": "timestamp"
+            },
+            {
+              "selector": "retraso",
+              "text": "retraso",
+              "type": "number"
+            },
+            {
+              "selector": "tren",
+              "text": "tren",
+              "type": "string"
+            },
+            {
+              "selector": "sentido",
+              "text": "sentido",
+              "type": "string"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "Un punto por tren llegado. Líneas de referencia en 5 y 15 minutos.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "m",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 16
+              }
+            ]
+          },
+          "custom": {
+            "drawStyle": "points",
+            "pointSize": 8,
+            "showPoints": "always",
+            "lineWidth": 0,
+            "thresholdsStyle": {
+              "mode": "dashed"
+            },
+            "axisSoftMin": 0,
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 20,
+      "type": "barchart",
+      "title": "Puntualidad por día",
+      "gridPos": {
+        "x": 14,
+        "y": 39,
+        "w": 10,
+        "h": 10
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$map([$distinct($l.fecha)], function($f){ ( $d := $l[fecha = $f]; {\"dia\": $f & \"T12:00:00+01:00\", \"trenes\": $count($d), \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })] )",
+          "columns": [
+            {
+              "selector": "dia",
+              "text": "día",
+              "type": "timestamp"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "retraso medio",
+              "type": "number"
+            },
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "description": "Porcentaje de trenes llegados con 5 minutos o menos, cada día.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "green",
+                "value": 85
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "^(retraso medio|trenes)$"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "viz": true,
+                  "legend": true,
+                  "tooltip": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "xField": "día",
+        "xTickLabelRotation": 0,
+        "showValue": "auto",
+        "legend": {
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 21,
+      "type": "table",
+      "title": "Por tren (busca aquí cómo suele ir cada horario)",
+      "gridPos": {
+        "x": 0,
+        "y": 49,
+        "w": 16,
+        "h": 10
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $r := [$map([$distinct($l.tren)], function($t){ ( $d := [$l[tren = $t]]; {\"sentido\": $d[0].sentido, \"salida\": $d[0].salida_prevista, \"llegada\": $d[0].llegada_prevista, \"tren\": $d[0].tipo & \" \" & $t, \"dias\": $count($d), \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })]; [$r^(sentido, salida)] )",
+          "columns": [],
+          "filters": []
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "medio"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 6
+                    },
+                    {
+                      "color": "red",
+                      "value": 16
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "m"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "maximo"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 6
+                    },
+                    {
+                      "color": "red",
+                      "value": 16
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "m"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "puntual"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 70
+                    },
+                    {
+                      "color": "green",
+                      "value": 85
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm"
+      }
+    },
+    {
+      "id": 22,
+      "type": "table",
+      "title": "Día a día",
+      "gridPos": {
+        "x": 16,
+        "y": 49,
+        "w": 8,
+        "h": 10
+      },
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INFINITY}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INFINITY}"
+          },
+          "type": "json",
+          "source": "url",
+          "parser": "backend",
+          "format": "table",
+          "url": "https://raw.githubusercontent.com/fsvsgjmrsf-prog/seguimiento-trenes/datos-trenes/registros.json",
+          "url_options": {
+            "method": "GET",
+            "data": ""
+          },
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$map([$distinct($l.fecha)], function($f){ ( $d := $l[fecha = $f]; {\"dia\": $f & \"T12:00:00+01:00\", \"trenes\": $count($d), \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })] )",
+          "columns": [
+            {
+              "selector": "dia",
+              "text": "día",
+              "type": "timestamp"
+            },
+            {
+              "selector": "trenes",
+              "text": "trenes",
+              "type": "number"
+            },
+            {
+              "selector": "puntual",
+              "text": "puntual",
+              "type": "number"
+            },
+            {
+              "selector": "medio",
+              "text": "medio",
+              "type": "number"
+            },
+            {
+              "selector": "maximo",
+              "text": "maximo",
+              "type": "number"
+            }
+          ],
+          "filters": []
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "día"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:DD/MM"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "puntual"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "medio"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 6
+                    },
+                    {
+                      "color": "red",
+                      "value": 16
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "m"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "maximo"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 6
+                    },
+                    {
+                      "color": "red",
+                      "value": 16
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "m"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "sortBy": [
+          {
+            "displayName": "día",
+            "desc": true
+          }
+        ]
+      }
+    }
+  ]
+}
