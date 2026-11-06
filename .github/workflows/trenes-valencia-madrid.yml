@@ -16,7 +16,7 @@ concurrency:
 jobs:
   registrar:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 14
     steps:
       - name: Descargar el script
         uses: actions/checkout@v4
@@ -32,7 +32,7 @@ jobs:
 
       - name: Trazado real de la vía (solo la primera vez)
         continue-on-error: true
-        timeout-minutes: 4
+        timeout-minutes: 11
         run: python3 seguimiento-trenes/trazado_osm.py datos
 
       - name: Guardar datos

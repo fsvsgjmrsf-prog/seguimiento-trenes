@@ -14,12 +14,15 @@ import urllib.request
 
 VALENCIA = (39.45986, -0.3823)
 CHAMARTIN = (40.47423, -3.68151)
-BBOX = "39.30,-3.95,40.60,-0.25"
 SERVIDORES = [
     "https://overpass-api.de/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
 ]
-CONSULTA = f'[out:json][timeout:150];way["railway"="rail"]({BBOX});out body;>;out skel qt;'
+# Línea aproximada de Renfe: solo se piden las vías (sin apartaderos) a menos de 15 km de ella.
+LINEA = "39.4599,-0.3823,39.4597,-0.5232,39.4708,-0.7050,39.4651,-0.8869,39.4978,-1.0566,39.5343,-1.2253,39.5394,-1.4040,39.5249,-1.5897,39.5235,-1.7771,39.5945,-1.9327,39.7265,-1.9786,39.8623,-2.0286,39.9903,-2.1132,40.0404,-2.2631,40.0516,-2.4456,40.0367,-2.6234,40.0110,-2.8016,39.9800,-2.9813,39.9739,-3.1614,39.9563,-3.3473,40.0254,-3.4994,40.1118,-3.6446,40.2114,-3.7436,40.3366,-3.6716,40.4679,-3.6830,40.4742,-3.6815"
+CONSULTA = f'[out:json][timeout:170];way(around:15000,{LINEA})["railway"="rail"][!"service"];out body;>;out skel qt;'
+
 
 
 def km(a, b):
@@ -33,7 +36,7 @@ def descargar():
     for url in SERVIDORES:
         try:
             req = urllib.request.Request(url, data=datos, headers={"User-Agent": "seguimiento-trenes"})
-            with urllib.request.urlopen(req, timeout=180) as r:
+            with urllib.request.urlopen(req, timeout=200) as r:
                 return json.load(r)
         except Exception as e:  # probar el siguiente servidor
             print(f"Overpass {url}: {e}")
