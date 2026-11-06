@@ -331,12 +331,12 @@
             "config": {
               "style": {
                 "size": {
-                  "fixed": 4
+                  "fixed": 2
                 },
                 "color": {
                   "fixed": "#3d5a80"
                 },
-                "opacity": 0.9,
+                "opacity": 0.7,
                 "symbol": {
                   "mode": "fixed",
                   "fixed": "img/icons/marker/circle.svg"
