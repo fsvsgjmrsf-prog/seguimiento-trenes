@@ -265,12 +265,16 @@
           "lat": 39.95,
           "lon": -2.05,
           "zoom": 7.2,
-          "allLayers": true
+          "allLayers": true,
+          "noRepeat": true
         },
         "controls": {
-          "showZoom": true,
-          "mouseWheelZoom": true,
-          "showAttribution": true
+          "showZoom": false,
+          "mouseWheelZoom": false,
+          "showAttribution": true,
+          "showScale": false,
+          "showMeasure": false,
+          "showDebug": false
         },
         "basemap": {
           "type": "default",
