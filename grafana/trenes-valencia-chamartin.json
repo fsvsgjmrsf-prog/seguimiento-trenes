@@ -79,98 +79,28 @@
   "templating": {
     "list": [
       {
+        "type": "textbox",
         "name": "tren",
-        "label": "Tren",
-        "type": "query",
-        "datasource": {
-          "type": "yesoreyeram-infinity-datasource",
-          "uid": "${DS_INFINITY}"
+        "label": "Tren (pulsa uno en la tabla o el mapa)",
+        "query": "",
+        "current": {
+          "text": "",
+          "value": ""
         },
-        "hide": 0,
-        "refresh": 2,
-        "includeAll": false,
-        "multi": false,
-        "query": {
-          "queryType": "infinity",
-          "infinityQuery": {
-            "refId": "variable",
-            "datasource": {
-              "type": "yesoreyeram-infinity-datasource",
-              "uid": "${DS_INFINITY}"
-            },
-            "type": "json",
-            "source": "url",
-            "parser": "backend",
-            "format": "table",
-            "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
-            "url_options": {
-              "method": "GET",
-              "data": ""
-            },
-            "root_selector": "[trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial}]",
-            "columns": [
-              {
-                "selector": "tren",
-                "text": "tren",
-                "type": "string"
-              }
-            ],
-            "filters": []
-          },
-          "query": "",
-          "refId": "variable"
-        },
-        "definition": "Infinity: tren",
-        "sort": 0,
-        "current": {},
-        "options": []
+        "options": [],
+        "hide": 0
       },
       {
+        "type": "textbox",
         "name": "retraso",
         "label": "Retraso",
-        "type": "query",
-        "datasource": {
-          "type": "yesoreyeram-infinity-datasource",
-          "uid": "${DS_INFINITY}"
+        "query": "0",
+        "current": {
+          "text": "0",
+          "value": "0"
         },
-        "hide": 2,
-        "refresh": 2,
-        "includeAll": false,
-        "multi": false,
-        "query": {
-          "queryType": "infinity",
-          "infinityQuery": {
-            "refId": "variable",
-            "datasource": {
-              "type": "yesoreyeram-infinity-datasource",
-              "uid": "${DS_INFINITY}"
-            },
-            "type": "json",
-            "source": "url",
-            "parser": "backend",
-            "format": "table",
-            "url": "https://tiempo-real.renfe.com/renfe-visor/flotaLD.json",
-            "url_options": {
-              "method": "GET",
-              "data": ""
-            },
-            "root_selector": "( $r := trenes[codComercial = '${tren}'].ultRetraso; [{\"retraso\": $r ? $number($r) : 0}] )",
-            "columns": [
-              {
-                "selector": "retraso",
-                "text": "retraso",
-                "type": "number"
-              }
-            ],
-            "filters": []
-          },
-          "query": "",
-          "refId": "variable"
-        },
-        "definition": "Infinity: retraso",
-        "sort": 0,
-        "current": {},
-        "options": []
+        "options": [],
+        "hide": 2
       }
     ]
   },
@@ -335,12 +265,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#8e8e8e",
-                "value": null
-              },
-              {
                 "color": "green",
-                "value": -1000
+                "value": null
               },
               {
                 "color": "#EAB839",
@@ -356,7 +282,25 @@
             "mode": "thresholds"
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tren"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Ver tiempos de paso de este tren",
+                    "url": "/d/trenes-vlc-cha/trenes-valencia-chamartin?var-tren=${__value.raw}&var-retraso=${__data.fields[3]}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       "options": {
         "view": {
@@ -554,12 +498,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "#8e8e8e",
-                      "value": null
-                    },
-                    {
                       "color": "green",
-                      "value": -1000
+                      "value": null
                     },
                     {
                       "color": "#EAB839",
@@ -582,6 +522,23 @@
               {
                 "id": "unit",
                 "value": "m"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tren"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Ver tiempos de paso de este tren",
+                    "url": "/d/trenes-vlc-cha/trenes-valencia-chamartin?var-tren=${__value.raw}&var-retraso=${__data.fields[3]}&${__url_time_range}"
+                  }
+                ]
               }
             ]
           }
@@ -642,7 +599,7 @@
     {
       "id": 5,
       "type": "stat",
-      "title": "Retraso actual del ${tren}",
+      "title": "Retraso actual del tren ${tren}",
       "gridPos": {
         "x": 0,
         "y": 17,
@@ -680,7 +637,7 @@
           "filters": []
         }
       ],
-      "description": "Elige el tren arriba, en el desplegable «Tren».",
+      "description": "Pulsa un tren en la tabla «Trenes del trayecto ahora» o en el mapa, o escribe su número arriba en «Tren».",
       "fieldConfig": {
         "defaults": {
           "unit": "m",
@@ -730,7 +687,7 @@
     {
       "id": 6,
       "type": "table",
-      "title": "Paradas y horas del ${tren}",
+      "title": "Paradas y horas del tren ${tren}",
       "gridPos": {
         "x": 5,
         "y": 17,
