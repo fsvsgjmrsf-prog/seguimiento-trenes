@@ -105,7 +105,7 @@
         "x": 0,
         "y": 1,
         "w": 24,
-        "h": 15
+        "h": 18
       },
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
@@ -257,9 +257,9 @@
       "options": {
         "view": {
           "id": "coords",
-          "lat": 39.95,
-          "lon": -2.05,
-          "zoom": 8.2,
+          "lat": 39.97,
+          "lon": -2.03,
+          "zoom": 8.8,
           "allLayers": true,
           "noRepeat": true
         },
@@ -405,7 +405,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 16,
+        "y": 19,
         "w": 24,
         "h": 1
       },
@@ -414,10 +414,10 @@
     {
       "id": 4,
       "type": "table",
-      "title": "Trenes en circulación y sus paradas",
+      "title": "Paradas que le quedan a cada tren en circulación",
       "gridPos": {
         "x": 0,
-        "y": 17,
+        "y": 20,
         "w": 24,
         "h": 13
       },
@@ -512,7 +512,7 @@
           "filters": []
         }
       ],
-      "description": "Cada parada de los trenes del trayecto que circulan ahora. Hora estimada = prevista + retraso actual. Las paradas ya pasadas salen en gris. Usa el filtro de la columna Tren para ver uno solo.",
+      "description": "Cada parada de los trenes del trayecto que circulan ahora. Hora estimada = prevista + retraso actual. Solo se muestran las paradas que faltan; en azul, la próxima (llegada en menos de 20 min). Usa el filtro de la columna Tren para ver uno solo.",
       "transformations": [
         {
           "id": "joinByField",
@@ -574,6 +574,24 @@
           }
         },
         {
+          "id": "filterByValue",
+          "options": {
+            "type": "exclude",
+            "match": "any",
+            "filters": [
+              {
+                "fieldName": "llega_en",
+                "config": {
+                  "id": "lower",
+                  "options": {
+                    "value": -1
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
           "id": "organize",
           "options": {
             "excludeByName": {
@@ -632,6 +650,10 @@
             },
             "properties": [
               {
+                "id": "unit",
+                "value": "m"
+              },
+              {
                 "id": "thresholds",
                 "value": {
                   "mode": "absolute",
@@ -652,15 +674,16 @@
                 }
               },
               {
-                "id": "custom.cellOptions",
+                "id": "color",
                 "value": {
-                  "type": "color-background",
-                  "mode": "basic"
+                  "mode": "thresholds"
                 }
               },
               {
-                "id": "unit",
-                "value": "m"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               }
             ]
           },
@@ -682,6 +705,14 @@
                     {
                       "color": "transparent",
                       "value": null
+                    },
+                    {
+                      "color": "rgba(56,130,221,0.18)",
+                      "value": -1
+                    },
+                    {
+                      "color": "transparent",
+                      "value": 20
                     }
                   ]
                 }
@@ -692,11 +723,10 @@
                   {
                     "type": "range",
                     "options": {
-                      "from": -100000,
-                      "to": -0.5,
+                      "from": -1,
+                      "to": 0.5,
                       "result": {
-                        "text": "Ya pasó",
-                        "color": "rgba(128,128,128,0.25)",
+                        "text": "Llegando",
                         "index": 0
                       }
                     }
@@ -733,7 +763,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 27,
+        "y": 30,
         "w": 24,
         "h": 1
       },
@@ -745,7 +775,7 @@
       "title": "Cómo leer esta fila",
       "gridPos": {
         "x": 0,
-        "y": 28,
+        "y": 31,
         "w": 6,
         "h": 7
       },
@@ -765,7 +795,7 @@
       "title": "Puntuales en tu franja",
       "gridPos": {
         "x": 6,
-        "y": 28,
+        "y": 31,
         "w": 4,
         "h": 7
       },
@@ -878,7 +908,7 @@
       "title": "Puntuales en sábado",
       "gridPos": {
         "x": 10,
-        "y": 28,
+        "y": 31,
         "w": 4,
         "h": 7
       },
@@ -991,7 +1021,7 @@
       "title": "Retraso medio",
       "gridPos": {
         "x": 14,
-        "y": 28,
+        "y": 31,
         "w": 3,
         "h": 7
       },
@@ -1104,7 +1134,7 @@
       "title": "Peor retraso",
       "gridPos": {
         "x": 17,
-        "y": 28,
+        "y": 31,
         "w": 3,
         "h": 7
       },
@@ -1217,7 +1247,7 @@
       "title": "Trenes registrados",
       "gridPos": {
         "x": 20,
-        "y": 28,
+        "y": 31,
         "w": 4,
         "h": 7
       },
@@ -1319,7 +1349,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 35,
+        "y": 38,
         "w": 24,
         "h": 1
       },
@@ -1331,7 +1361,7 @@
       "title": "Trenes llegados",
       "gridPos": {
         "x": 0,
-        "y": 36,
+        "y": 39,
         "w": 6,
         "h": 5
       },
@@ -1422,7 +1452,7 @@
       "title": "Puntuales",
       "gridPos": {
         "x": 6,
-        "y": 36,
+        "y": 39,
         "w": 6,
         "h": 5
       },
@@ -1525,7 +1555,7 @@
       "title": "Retraso medio",
       "gridPos": {
         "x": 12,
-        "y": 36,
+        "y": 39,
         "w": 6,
         "h": 5
       },
@@ -1628,7 +1658,7 @@
       "title": "Peor retraso",
       "gridPos": {
         "x": 18,
-        "y": 36,
+        "y": 39,
         "w": 6,
         "h": 5
       },
@@ -1731,7 +1761,7 @@
       "title": "Retraso de cada tren al llegar",
       "gridPos": {
         "x": 0,
-        "y": 41,
+        "y": 44,
         "w": 14,
         "h": 10
       },
@@ -1838,7 +1868,7 @@
       "title": "Puntualidad por día",
       "gridPos": {
         "x": 14,
-        "y": 41,
+        "y": 44,
         "w": 10,
         "h": 10
       },
@@ -1956,7 +1986,7 @@
       "title": "Por tren (busca aquí cómo suele ir cada horario)",
       "gridPos": {
         "x": 0,
-        "y": 51,
+        "y": 54,
         "w": 16,
         "h": 10
       },
@@ -2134,7 +2164,7 @@
       "title": "Día a día",
       "gridPos": {
         "x": 16,
-        "y": 51,
+        "y": 54,
         "w": 8,
         "h": 10
       },
