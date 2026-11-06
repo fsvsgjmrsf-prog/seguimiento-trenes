@@ -2100,9 +2100,36 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $r := [$map([$distinct($l.tren)], function($t){ ( $d := [$l[tren = $t]]; {\"sentido\": $d[0].sentido, \"salida\": $d[0].salida_prevista, \"llegada\": $d[0].llegada_prevista, \"tren\": $d[0].tipo & \" \" & $t, \"dias\": $count($d), \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })]; [$r^(sentido, salida)] )",
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; $r := [$map([$distinct($l.tren)], function($t){ ( $d := [$l[tren = $t]^(fecha)]; {\"sentido\": $d[0].sentido, \"salida\": $d[0].salida_prevista, \"llegada\": $d[0].llegada_prevista, \"tren\": $d[0].tipo & \" \" & $t, \"fecha\": $count($d) = 1 ? $substring($d[0].fecha, 8, 2) & \"/\" & $substring($d[0].fecha, 5, 2) : $substring($d[0].fecha, 8, 2) & \"/\" & $substring($d[0].fecha, 5, 2) & \" – \" & $substring($d[-1].fecha, 8, 2) & \"/\" & $substring($d[-1].fecha, 5, 2) & \" (\" & $count($d) & \" días)\", \"puntual\": $round($count($d[retraso_final <= 5]) / $count($d) * 100, 1), \"medio\": $round($average($d.retraso_final), 1), \"maximo\": $max($d.retraso_final)} ) })]; [$r^(sentido, salida)] )",
           "columns": [],
           "filters": []
+        }
+      ],
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "tren": 0,
+              "sentido": 1,
+              "fecha": 2,
+              "salida": 3,
+              "llegada": 4,
+              "medio": 5,
+              "maximo": 6,
+              "puntual": 7
+            },
+            "renameByName": {
+              "tren": "Tren",
+              "sentido": "Sentido",
+              "fecha": "Fecha del viaje",
+              "salida": "Salida",
+              "llegada": "Llegada",
+              "medio": "Retraso medio",
+              "maximo": "Peor retraso",
+              "puntual": "Puntual"
+            }
+          }
         }
       ],
       "fieldConfig": {
@@ -2124,20 +2151,20 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "#8e8e8e",
+                      "color": "green",
                       "value": null
                     },
                     {
-                      "color": "green",
-                      "value": -1000
+                      "color": "#EAB839",
+                      "value": 0.5
                     },
                     {
-                      "color": "#EAB839",
-                      "value": 6
+                      "color": "#FF9830",
+                      "value": 5.5
                     },
                     {
                       "color": "red",
-                      "value": 16
+                      "value": 15.5
                     }
                   ]
                 }
@@ -2167,20 +2194,20 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "#8e8e8e",
+                      "color": "green",
                       "value": null
                     },
                     {
-                      "color": "green",
-                      "value": -1000
+                      "color": "#EAB839",
+                      "value": 0.5
                     },
                     {
-                      "color": "#EAB839",
-                      "value": 6
+                      "color": "#FF9830",
+                      "value": 5.5
                     },
                     {
                       "color": "red",
-                      "value": 16
+                      "value": 15.5
                     }
                   ]
                 }
