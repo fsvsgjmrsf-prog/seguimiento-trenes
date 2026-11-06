@@ -19,10 +19,11 @@ SERVIDORES = [
     "https://overpass.kumi.systems/api/interpreter",
     "https://overpass.private.coffee/api/interpreter",
 ]
-# Línea aproximada de Renfe: solo se piden las vías (sin apartaderos) a menos de 15 km de ella.
-LINEA = "39.4599,-0.3823,39.4597,-0.5232,39.4708,-0.7050,39.4651,-0.8869,39.4978,-1.0566,39.5343,-1.2253,39.5394,-1.4040,39.5249,-1.5897,39.5235,-1.7771,39.5945,-1.9327,39.7265,-1.9786,39.8623,-2.0286,39.9903,-2.1132,40.0404,-2.2631,40.0516,-2.4456,40.0367,-2.6234,40.0110,-2.8016,39.9800,-2.9813,39.9739,-3.1614,39.9563,-3.3473,40.0254,-3.4994,40.1118,-3.6446,40.2114,-3.7436,40.3366,-3.6716,40.4679,-3.6830,40.4742,-3.6815"
-CONSULTA = f'[out:json][timeout:170];way(around:15000,{LINEA})["railway"="rail"][!"service"];out body;>;out skel qt;'
-
+BBOX = "39.35,-3.80,40.55,-0.30"
+# 1) relaciones ferroviarias de la zona (solo etiquetas, consulta ligera)
+Q_RELACIONES = f'[out:json][timeout:90];rel["route"~"^(railway|train)$"]({BBOX});out tags;'
+# 2) vías de las relaciones elegidas
+Q_VIAS = '[out:json][timeout:150];rel(id:{ids});way(r)["railway"="rail"];out body;>;out skel qt;'
 
 
 def km(a, b):
@@ -31,16 +32,29 @@ def km(a, b):
     return math.hypot(dx, dy)
 
 
-def descargar():
-    datos = urllib.parse.urlencode({"data": CONSULTA}).encode()
+def descargar(consulta, espera=120):
+    datos = urllib.parse.urlencode({"data": consulta}).encode()
     for url in SERVIDORES:
         try:
             req = urllib.request.Request(url, data=datos, headers={"User-Agent": "seguimiento-trenes"})
-            with urllib.request.urlopen(req, timeout=200) as r:
+            with urllib.request.urlopen(req, timeout=espera) as r:
                 return json.load(r)
         except Exception as e:  # probar el siguiente servidor
             print(f"Overpass {url}: {e}")
     return None
+
+
+def relaciones():
+    osm = descargar(Q_RELACIONES, 90)
+    if not osm:
+        return []
+    ids = []
+    for e in osm["elements"]:
+        n = (e.get("tags", {}).get("name", "") + " " + e.get("tags", {}).get("ref", "")).lower()
+        if "madrid" in n and any(k in n for k in ("levante", "valència", "valencia", "cuenca")):
+            print("Relación:", e["id"], e["tags"].get("name"))
+            ids.append(e["id"])
+    return ids
 
 
 def camino(osm):
@@ -108,13 +122,20 @@ def main():
                 return
     except (OSError, ValueError):
         pass
-    osm = descargar()
+    ids = relaciones()
+    if not ids:
+        print("No se encontró la relación de la línea")
+        return
+    osm = descargar(Q_VIAS.format(ids=",".join(map(str, ids[:6]))), 170)
     pts = camino(osm) if osm else None
     if not pts:
         print("No se pudo calcular el trazado")
         return
     largo = sum(km(a, b) for a, b in zip(pts, pts[1:]))
-    if not 330 <= largo <= 480 or km(pts[0], VALENCIA) > 3 or km(pts[-1], CHAMARTIN) > 3:
+    if km(pts[-1], CHAMARTIN) > 0.5:
+        pts.append(CHAMARTIN)  # túnel Atocha-Chamartín si no está en la relación
+        largo += km(pts[-2], pts[-1])
+    if not 330 <= largo <= 480 or km(pts[0], VALENCIA) > 5 or km(pts[-2], CHAMARTIN) > 9:
         print(f"Trazado descartado: {largo:.0f} km")
         return
     puntos = [{"lat": round(a, 5), "lon": round(b, 5)} for a, b in densificar(pts)]
