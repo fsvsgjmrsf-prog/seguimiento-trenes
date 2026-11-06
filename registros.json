@@ -1,5 +1,5 @@
 {
- "ultima_actualizacion": "2026-11-06T22:00+01:00",
+ "ultima_actualizacion": "2026-11-06T22:15+01:00",
  "version": 1,
  "viajes": {
   "2026-11-06_05080": {
@@ -120,43 +120,43 @@
    "ultima_obs": "2026-11-06T21:15+01:00"
   },
   "2026-11-06_05200": {
-   "estado": "en_ruta",
+   "estado": "llegado",
    "fecha": "2026-11-06",
    "llegada_prevista": "22:24",
-   "observaciones": 15,
-   "retraso_final": -5,
+   "observaciones": 16,
+   "retraso_final": -6,
    "retraso_max": 1,
    "salida_prevista": "20:30",
    "sentido": "Madrid Chamartín → Valencia J. Sorolla",
    "tipo": "AVE",
    "tren": "05200",
-   "ultima_obs": "2026-11-06T22:00+01:00"
+   "ultima_obs": "2026-11-06T22:15+01:00"
   },
   "2026-11-06_05210": {
    "estado": "en_ruta",
    "fecha": "2026-11-06",
    "llegada_prevista": "23:05",
-   "observaciones": 4,
-   "retraso_final": 0,
+   "observaciones": 5,
+   "retraso_final": 2,
    "retraso_max": 3,
    "salida_prevista": "21:00",
    "sentido": "Madrid Chamartín → Valencia J. Sorolla",
    "tipo": "AVE",
    "tren": "05210",
-   "ultima_obs": "2026-11-06T22:00+01:00"
+   "ultima_obs": "2026-11-06T22:15+01:00"
   },
   "2026-11-06_05215": {
    "estado": "en_ruta",
    "fecha": "2026-11-06",
    "llegada_prevista": "23:18",
-   "observaciones": 4,
-   "retraso_final": 0,
+   "observaciones": 5,
+   "retraso_final": 1,
    "retraso_max": 3,
    "salida_prevista": "21:12",
    "sentido": "Valencia J. Sorolla → Madrid Chamartín",
    "tipo": "AVLO",
    "tren": "05215",
-   "ultima_obs": "2026-11-06T22:00+01:00"
+   "ultima_obs": "2026-11-06T22:15+01:00"
   }
  }
 }
