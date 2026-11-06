@@ -127,7 +127,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"etiqueta\": codComercial & \" \" & ($number(ultRetraso) > 0 ? \"+\" : \"\") & ultRetraso & \"'\", \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
           "columns": [
             {
               "selector": "tren",
@@ -135,13 +135,8 @@
               "type": "string"
             },
             {
-              "selector": "tipo",
-              "text": "tipo",
-              "type": "string"
-            },
-            {
-              "selector": "sentido",
-              "text": "sentido",
+              "selector": "etiqueta",
+              "text": "etiqueta",
               "type": "string"
             },
             {
@@ -264,7 +259,7 @@
           "id": "coords",
           "lat": 39.95,
           "lon": -2.05,
-          "zoom": 7.2,
+          "zoom": 8.2,
           "allLayers": true,
           "noRepeat": true
         },
@@ -282,7 +277,7 @@
           "config": {}
         },
         "tooltip": {
-          "mode": "details"
+          "mode": "none"
         },
         "layers": [
           {
@@ -376,7 +371,7 @@
                 },
                 "text": {
                   "mode": "field",
-                  "field": "tren",
+                  "field": "etiqueta",
                   "fixed": ""
                 },
                 "textConfig": {
@@ -433,7 +428,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"etiqueta\": codComercial & \" \" & ($number(ultRetraso) > 0 ? \"+\" : \"\") & ultRetraso & \"'\", \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
           "columns": [],
           "filters": []
         }
@@ -495,7 +490,8 @@
             "excludeByName": {
               "lat": true,
               "lon": true,
-              "actualizado": true
+              "actualizado": true,
+              "etiqueta": true
             },
             "indexByName": {
               "tren": 0,
@@ -605,7 +601,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"etiqueta\": codComercial & \" \" & ($number(ultRetraso) > 0 ? \"+\" : \"\") & ultRetraso & \"'\", \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion}]; [$v^(>retraso)] )",
           "columns": [
             {
               "selector": "tren",
@@ -645,7 +641,7 @@
           "options": {
             "mode": "binary",
             "binary": {
-              "left": "retraso",
+              "left": "retraso B",
               "operator": "*",
               "right": "60000"
             },
@@ -658,7 +654,7 @@
           "options": {
             "mode": "binary",
             "binary": {
-              "left": "prevista",
+              "left": "prevista A",
               "operator": "+",
               "right": "retraso_ms"
             },
@@ -674,21 +670,21 @@
             },
             "indexByName": {
               "tren": 0,
-              "tipo": 1,
-              "sentido": 2,
-              "estacion": 3,
-              "prevista": 4,
+              "tipo B": 1,
+              "sentido B": 2,
+              "estacion A": 3,
+              "prevista A": 4,
               "estimada": 5,
-              "retraso": 6
+              "retraso B": 6
             },
             "renameByName": {
               "tren": "Tren",
-              "tipo": "Tipo",
-              "sentido": "Sentido",
-              "estacion": "Estación",
-              "prevista": "Hora prevista",
+              "tipo B": "Tipo",
+              "sentido B": "Sentido",
+              "estacion A": "Estación",
+              "prevista A": "Hora prevista",
               "estimada": "Hora estimada",
-              "retraso": "Retraso"
+              "retraso B": "Retraso"
             }
           }
         }
