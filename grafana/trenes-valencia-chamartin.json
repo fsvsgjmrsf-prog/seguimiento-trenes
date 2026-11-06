@@ -414,7 +414,7 @@
     {
       "id": 4,
       "type": "table",
-      "title": "Paradas que le quedan a cada tren en circulación",
+      "title": "Trenes en circulación y sus paradas",
       "gridPos": {
         "x": 0,
         "y": 20,
@@ -512,7 +512,7 @@
           "filters": []
         }
       ],
-      "description": "Cada parada de los trenes del trayecto que circulan ahora. Hora estimada = prevista + retraso actual. Solo se muestran las paradas que faltan; en azul, la próxima (llegada en menos de 20 min). Usa el filtro de la columna Tren para ver uno solo.",
+      "description": "Cada parada de los trenes del trayecto que circulan ahora. Hora estimada = prevista + retraso actual. Las paradas ya pasadas salen con el texto en gris; en azul, la próxima (llegada en menos de 20 min). Usa el filtro de la columna Tren para ver uno solo.",
       "transformations": [
         {
           "id": "joinByField",
@@ -571,24 +571,6 @@
             },
             "alias": "llega_en",
             "replaceFields": false
-          }
-        },
-        {
-          "id": "filterByValue",
-          "options": {
-            "type": "exclude",
-            "match": "any",
-            "filters": [
-              {
-                "fieldName": "llega_en",
-                "config": {
-                  "id": "lower",
-                  "options": {
-                    "value": -1
-                  }
-                }
-              }
-            ]
           }
         },
         {
@@ -698,20 +680,26 @@
                 "value": "m"
               },
               {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              },
+              {
                 "id": "thresholds",
                 "value": {
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "transparent",
+                      "color": "text",
                       "value": null
                     },
                     {
-                      "color": "rgba(56,130,221,0.18)",
+                      "color": "#3882dd",
                       "value": -1
                     },
                     {
-                      "color": "transparent",
+                      "color": "text",
                       "value": 20
                     }
                   ]
@@ -723,11 +711,24 @@
                   {
                     "type": "range",
                     "options": {
+                      "from": -100000,
+                      "to": -1.5,
+                      "result": {
+                        "text": "Ya pasó",
+                        "color": "#8e8e8e",
+                        "index": 0
+                      }
+                    }
+                  },
+                  {
+                    "type": "range",
+                    "options": {
                       "from": -1,
                       "to": 0.5,
                       "result": {
                         "text": "Llegando",
-                        "index": 0
+                        "color": "#3882dd",
+                        "index": 1
                       }
                     }
                   }
@@ -736,8 +737,7 @@
               {
                 "id": "custom.cellOptions",
                 "value": {
-                  "type": "color-background",
-                  "mode": "basic",
+                  "type": "color-text",
                   "applyToRow": true
                 }
               }
