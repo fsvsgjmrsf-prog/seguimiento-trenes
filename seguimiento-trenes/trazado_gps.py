@@ -79,31 +79,50 @@ def densificar(pts, paso_km=1.2):
     return out
 
 
-def construir(posiciones, linea):
-    acumulado = [0.0]
+def acumular(linea):
+    acum = [0.0]
     for a, b in zip(linea, linea[1:]):
-        acumulado.append(acumulado[-1] + km(a, b))
-    obs = []
-    for p in posiciones:
-        s, d = proyectar(p, linea, acumulado)
+        acum.append(acum[-1] + km(a, b))
+    return acum
+
+
+def curva(puntos, linea, tramo_km):
+    """Agrupa los puntos por tramos a lo largo de `linea` y devuelve sus centros."""
+    acum = acumular(linea)
+    grupos = {}
+    for p in puntos:
+        s, d = proyectar(p, linea, acum)
         if d <= MAX_DESVIO_KM:
-            obs.append((s, tuple(p)))
-    # Inicio y fin fijos en las estaciones.
-    obs.append((0.0, linea[0]))
-    obs.append((acumulado[-1], linea[-1]))
-    obs.sort()
-    # Una observación por cada 300 m de recorrido: quita el ruido de trenes parados.
-    filtrado, ultimo = [], -1.0
-    for s, p in obs:
-        if s - ultimo >= 0.3 or s == acumulado[-1]:
-            filtrado.append((s, p))
-            ultimo = s
-    pts = [filtrado[0][1]]
-    for (s0, _), (s1, p1) in zip(filtrado, filtrado[1:]):
-        if s1 - s0 > HUECO_KM:
-            pts += [linea[i] for i in range(len(linea)) if s0 < acumulado[i] < s1]
-        pts.append(p1)
-    return densificar(pts), len(filtrado) - 2
+            grupos.setdefault(int(s // tramo_km), []).append((s, p))
+    centros = []
+    for k in sorted(grupos):
+        g = grupos[k]
+        centros.append((sum(x for x, _ in g) / len(g),
+                        (sum(p[0] for _, p in g) / len(g), sum(p[1] for _, p in g) / len(g))))
+    # Huecos sin observaciones: tramo de la línea de referencia.
+    pts, previo = [linea[0]], 0.0
+    for sc, c in centros + [(acum[-1], linea[-1])]:
+        if sc - previo > HUECO_KM:
+            pts += [linea[i] for i in range(len(linea)) if previo < acum[i] < sc]
+        pts.append(c)
+        previo = sc
+    return pts
+
+
+def suavizar(pts, n=1):
+    out = list(pts)
+    for i in range(n, len(pts) - n):
+        v = pts[i - n:i + n + 1]
+        out[i] = (sum(p[0] for p in v) / len(v), sum(p[1] for p in v) / len(v))
+    return out
+
+
+def construir(posiciones, linea):
+    ref = linea
+    # Se repite: cada vuelta ordena los puntos sobre la curva obtenida en la anterior.
+    for tramo in (4.0, 3.0, 2.0, 1.5):
+        ref = suavizar(curva(posiciones, ref, tramo))
+    return densificar(ref), len(ref)
 
 
 def main():
