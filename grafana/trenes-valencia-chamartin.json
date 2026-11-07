@@ -127,7 +127,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $atan := function($z){ 0.7853981634 * $z - $z * ($abs($z) - 1) * (0.2447 + 0.0663 * $abs($z)) }; $rumbo := function($la1, $lo1, $la2, $lo2){ ( $x := ($lo2 - $lo1) * 0.766; $y := $la2 - $la1; $r := $abs($x) <= $abs($y) ? ( $y = 0 ? 0 : ( $a := $atan($abs($x) / $abs($y)); $y > 0 ? ($x >= 0 ? $a : -$a) : ($x >= 0 ? 3.1415926536 - $a : $a - 3.1415926536) ) ) : ( $a := $atan($abs($y) / $abs($x)); $x > 0 ? 1.5707963268 - ($y >= 0 ? $a : -$a) : -1.5707963268 + ($y >= 0 ? $a : -$a) ); $round(($r * 57.2957795 + 360) % 360) ) }; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"etiqueta\": codComercial & \" \" & ($number(ultRetraso) > 0 ? \"+\" : \"\") & ultRetraso & \"'\", \"rumbo\": $rumbo(latitud, longitud, codOrigen = '03216' ? 40.47423 : 39.45986, codOrigen = '03216' ? -3.68151 : -0.3823), \"giro\": (360 - $rumbo(latitud, longitud, codOrigen = '03216' ? 40.47423 : 39.45986, codOrigen = '03216' ? -3.68151 : -0.3823)) % 360, \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion, \"ahora_min\": $number($substring($$.fechaActualizacion, 11, 2)) * 60 + $number($substring($$.fechaActualizacion, 14, 2))}]; [$v^(>retraso)] )",
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $atan := function($z){ 0.7853981634 * $z - $z * ($abs($z) - 1) * (0.2447 + 0.0663 * $abs($z)) }; $rumbo := function($la1, $lo1, $la2, $lo2){ ( $x := ($lo2 - $lo1) * 0.766; $y := $la2 - $la1; $r := $abs($x) <= $abs($y) ? ( $y = 0 ? 0 : ( $a := $atan($abs($x) / $abs($y)); $y > 0 ? ($x >= 0 ? $a : -$a) : ($x >= 0 ? 3.1415926536 - $a : $a - 3.1415926536) ) ) : ( $a := $atan($abs($y) / $abs($x)); $x > 0 ? 1.5707963268 - ($y >= 0 ? $a : -$a) : -1.5707963268 + ($y >= 0 ? $a : -$a) ); $round(($r * 57.2957795 + 360) % 360) ) }; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"tipo_n\": $string(codProduct) = '28' ? 1 : 0, \"etiqueta\": codComercial & \" \" & ($number(ultRetraso) > 0 ? \"+\" : \"\") & ultRetraso & \"'\", \"rumbo\": $rumbo(latitud, longitud, codOrigen = '03216' ? 40.47423 : 39.45986, codOrigen = '03216' ? -3.68151 : -0.3823), \"giro\": (360 - $rumbo(latitud, longitud, codOrigen = '03216' ? 40.47423 : 39.45986, codOrigen = '03216' ? -3.68151 : -0.3823)) % 360, \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion, \"ahora_min\": $number($substring($$.fechaActualizacion, 11, 2)) * 60 + $number($substring($$.fechaActualizacion, 14, 2))}]; [$v^(>retraso)] )",
           "columns": [
             {
               "selector": "tren",
@@ -142,6 +142,11 @@
             {
               "selector": "retraso",
               "text": "retraso",
+              "type": "number"
+            },
+            {
+              "selector": "tipo_n",
+              "text": "tipo_n",
               "type": "number"
             },
             {
@@ -242,7 +247,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $e1 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"retraso\": $number(ultRetraso), \"tam\": 6, \"lat\": latitud - 0.04 * ((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001), \"lon\": longitud - 0.04 * ((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001)}]; $e2 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"retraso\": $number(ultRetraso), \"tam\": 5, \"lat\": latitud - 0.08 * ((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001), \"lon\": longitud - 0.08 * ((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001)}]; $e3 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"retraso\": $number(ultRetraso), \"tam\": 4, \"lat\": latitud - 0.12 * ((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001), \"lon\": longitud - 0.12 * ((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001)}]; $e4 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"retraso\": $number(ultRetraso), \"tam\": 3, \"lat\": latitud - 0.16 * ((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001), \"lon\": longitud - 0.16 * ((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001)}]; $e5 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"retraso\": $number(ultRetraso), \"tam\": 2, \"lat\": latitud - 0.20 * ((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001), \"lon\": longitud - 0.20 * ((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001)}]; $e6 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"retraso\": $number(ultRetraso), \"tam\": 1, \"lat\": latitud - 0.24 * ((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001), \"lon\": longitud - 0.24 * ((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) / ($abs(((codOrigen = '03216' ? -3.68151 : -0.3823) - longitud) * 0.766) + $abs((codOrigen = '03216' ? 40.47423 : 39.45986) - latitud) + 0.0001)}]; $append($append($append($e1, $e2), $append($e3, $e4)), $append($e5, $e6)) )",
+          "root_selector": "( $LA := [39.4599,39.4505,39.4481,39.4479,39.4473,39.4495,39.4572,39.4655,39.4727,39.4714,39.4684,39.4652,39.4640,39.4653,39.4659,39.4663,39.4666,39.4666,39.4665,39.4663,39.4667,39.4677,39.4722,39.4800,39.4909,39.5004,39.5053,39.5108,39.5187,39.5304,39.5405,39.5462,39.5493,39.5500,39.5486,39.5465,39.5448,39.5432,39.5429,39.5459,39.5463,39.5396,39.5299,39.5222,39.5170,39.5129,39.5104,39.5079,39.5114,39.5156,39.5202,39.5237,39.5261,39.5297,39.5346,39.5470,39.5677,39.5851,39.6040,39.6247,39.6497,39.6756,39.6938,39.7180,39.7433,39.7662,39.7903,39.8146,39.8405,39.8611,39.8814,39.9046,39.9244,39.9447,39.9651,39.9859,39.9997,40.0132,40.0290,40.0443,40.0523,40.0571,40.0531,40.0449,40.0376,40.0377,40.0423,40.0498,40.0533,40.0553,40.0525,40.0491,40.0443,40.0394,40.0363,40.0344,40.0339,40.0329,40.0322,40.0314,40.0298,40.0272,40.0224,40.0166,40.0107,40.0067,40.0020,39.9907,39.9815,39.9743,39.9711,39.9746,39.9791,39.9808,39.9764,39.9689,39.9601,39.9579,39.9572,39.9579,39.9587,39.9577,39.9561,39.9584,39.9603,39.9590,39.9519,39.9542,39.9667,39.9759,39.9890,40.0010,40.0163,40.0324,40.0542,40.0782,40.1018,40.1239,40.1396,40.1554,40.1753,40.1950,40.2135,40.2386,40.2627,40.2816,40.2963,40.3140,40.3321,40.3536,40.3719,40.3950,40.4192,40.4433,40.4684,40.4742]; $LO := [-0.3823,-0.4054,-0.4320,-0.4591,-0.4900,-0.5195,-0.5459,-0.5743,-0.6048,-0.6293,-0.6607,-0.6898,-0.7148,-0.7468,-0.7712,-0.7966,-0.8207,-0.8550,-0.8793,-0.9051,-0.9317,-0.9590,-0.9879,-1.0094,-1.0317,-1.0580,-1.0809,-1.1041,-1.1263,-1.1544,-1.1815,-1.2125,-1.2439,-1.2783,-1.3049,-1.3290,-1.3524,-1.3885,-1.4150,-1.4472,-1.4749,-1.5040,-1.5367,-1.5698,-1.6009,-1.6324,-1.6614,-1.6946,-1.7244,-1.7524,-1.7859,-1.8179,-1.8451,-1.8719,-1.8981,-1.9278,-1.9466,-1.9550,-1.9572,-1.9538,-1.9489,-1.9423,-1.9402,-1.9438,-1.9539,-1.9671,-1.9809,-1.9942,-2.0062,-2.0137,-2.0182,-2.0249,-2.0334,-2.0436,-2.0563,-2.0760,-2.0927,-2.1110,-2.1367,-2.1665,-2.1879,-2.2236,-2.2476,-2.2764,-2.3058,-2.3301,-2.3534,-2.3847,-2.4118,-2.4471,-2.4797,-2.5116,-2.5438,-2.5760,-2.6005,-2.6264,-2.6505,-2.6829,-2.7068,-2.7329,-2.7658,-2.7940,-2.8222,-2.8492,-2.8773,-2.9050,-2.9293,-2.9587,-2.9838,-3.0082,-3.0347,-3.0583,-3.0867,-3.1153,-3.1506,-3.1816,-3.2144,-3.2417,-3.2680,-3.2935,-3.3207,-3.3481,-3.3737,-3.4071,-3.4354,-3.4673,-3.4905,-3.5181,-3.5498,-3.5789,-3.5974,-3.6155,-3.6421,-3.6606,-3.6693,-3.6733,-3.6762,-3.6868,-3.6997,-3.7159,-3.7349,-3.7429,-3.7448,-3.7399,-3.7272,-3.7089,-3.6949,-3.6800,-3.6634,-3.6696,-3.6779,-3.6805,-3.6848,-3.6831,-3.6815,-3.6815]; $cerca := function($la, $lo){ $min($map($LA, function($v, $i){ $round(($abs($v - $la) + $abs($LO[$i] - $lo) * 0.766) * 100000) * 1000 + $i })) % 1000 }; $e1 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].( $j := $max([0, $min([155, $cerca(latitud, longitud) + (codOrigen = '03216' ? -1 : 1)])]); {\"tren\": codComercial, \"tipo_n\": $string(codProduct) = '28' ? 1 : 0, \"tam\": 6, \"lat\": $LA[$j], \"lon\": $LO[$j]} )]; $e2 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].( $j := $max([0, $min([155, $cerca(latitud, longitud) + (codOrigen = '03216' ? -2 : 2)])]); {\"tren\": codComercial, \"tipo_n\": $string(codProduct) = '28' ? 1 : 0, \"tam\": 5, \"lat\": $LA[$j], \"lon\": $LO[$j]} )]; $e3 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].( $j := $max([0, $min([155, $cerca(latitud, longitud) + (codOrigen = '03216' ? -3 : 3)])]); {\"tren\": codComercial, \"tipo_n\": $string(codProduct) = '28' ? 1 : 0, \"tam\": 4, \"lat\": $LA[$j], \"lon\": $LO[$j]} )]; $e4 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].( $j := $max([0, $min([155, $cerca(latitud, longitud) + (codOrigen = '03216' ? -4 : 4)])]); {\"tren\": codComercial, \"tipo_n\": $string(codProduct) = '28' ? 1 : 0, \"tam\": 3, \"lat\": $LA[$j], \"lon\": $LO[$j]} )]; $e5 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].( $j := $max([0, $min([155, $cerca(latitud, longitud) + (codOrigen = '03216' ? -5 : 5)])]); {\"tren\": codComercial, \"tipo_n\": $string(codProduct) = '28' ? 1 : 0, \"tam\": 2, \"lat\": $LA[$j], \"lon\": $LO[$j]} )]; $e6 := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].( $j := $max([0, $min([155, $cerca(latitud, longitud) + (codOrigen = '03216' ? -6 : 6)])]); {\"tren\": codComercial, \"tipo_n\": $string(codProduct) = '28' ? 1 : 0, \"tam\": 1, \"lat\": $LA[$j], \"lon\": $LO[$j]} )]; $append($append($append($e1, $e2), $append($e3, $e4)), $append($e5, $e6)) )",
           "columns": [
             {
               "selector": "tren",
@@ -250,8 +255,8 @@
               "type": "string"
             },
             {
-              "selector": "retraso",
-              "text": "retraso",
+              "selector": "tipo_n",
+              "text": "tipo_n",
               "type": "number"
             },
             {
@@ -273,7 +278,7 @@
           "filters": []
         }
       ],
-      "description": "Posición GPS de los trenes de Renfe del trayecto (datos abiertos de Renfe, cada 15 s). Color: verde hasta 5 min, amarillo 6–15, rojo más de 15.",
+      "description": "Posición GPS de los trenes de Renfe del trayecto (datos abiertos de Renfe, cada 15 s). Flecha y estela: morado = AVE, turquesa = AVLO. La estela sigue la vía por detrás del tren; la etiqueta muestra el retraso actual.",
       "fieldConfig": {
         "defaults": {
           "thresholds": {
@@ -297,7 +302,38 @@
             "mode": "thresholds"
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tipo_n"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#8A1F6E",
+                      "value": null
+                    },
+                    {
+                      "color": "#00A9A5",
+                      "value": 0.5
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "options": {
         "view": {
@@ -409,8 +445,8 @@
                   "max": 7
                 },
                 "color": {
-                  "field": "retraso",
-                  "fixed": "green"
+                  "field": "tipo_n",
+                  "fixed": "#8A1F6E"
                 },
                 "opacity": 0.55,
                 "symbol": {
@@ -440,8 +476,8 @@
                   "fixed": 13
                 },
                 "color": {
-                  "field": "retraso",
-                  "fixed": "green"
+                  "field": "tipo_n",
+                  "fixed": "#8A1F6E"
                 },
                 "opacity": 0.95,
                 "symbol": {
@@ -472,7 +508,7 @@
                   "textBaseline": "middle"
                 }
               },
-              "showLegend": true
+              "showLegend": false
             },
             "location": {
               "mode": "coords",
@@ -571,7 +607,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $atan := function($z){ 0.7853981634 * $z - $z * ($abs($z) - 1) * (0.2447 + 0.0663 * $abs($z)) }; $rumbo := function($la1, $lo1, $la2, $lo2){ ( $x := ($lo2 - $lo1) * 0.766; $y := $la2 - $la1; $r := $abs($x) <= $abs($y) ? ( $y = 0 ? 0 : ( $a := $atan($abs($x) / $abs($y)); $y > 0 ? ($x >= 0 ? $a : -$a) : ($x >= 0 ? 3.1415926536 - $a : $a - 3.1415926536) ) ) : ( $a := $atan($abs($y) / $abs($x)); $x > 0 ? 1.5707963268 - ($y >= 0 ? $a : -$a) : -1.5707963268 + ($y >= 0 ? $a : -$a) ); $round(($r * 57.2957795 + 360) % 360) ) }; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"etiqueta\": codComercial & \" \" & ($number(ultRetraso) > 0 ? \"+\" : \"\") & ultRetraso & \"'\", \"rumbo\": $rumbo(latitud, longitud, codOrigen = '03216' ? 40.47423 : 39.45986, codOrigen = '03216' ? -3.68151 : -0.3823), \"giro\": (360 - $rumbo(latitud, longitud, codOrigen = '03216' ? 40.47423 : 39.45986, codOrigen = '03216' ? -3.68151 : -0.3823)) % 360, \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion, \"ahora_min\": $number($substring($$.fechaActualizacion, 11, 2)) * 60 + $number($substring($$.fechaActualizacion, 14, 2))}]; [$v^(>retraso)] )",
+          "root_selector": "( $t := {\"2\":\"AVE\",\"3\":\"Avant\",\"10\":\"Euromed\",\"11\":\"Alvia\",\"13\":\"Intercity\",\"28\":\"AVLO\"}; $n := {\"03216\":\"València Joaquín Sorolla\",\"03213\":\"Requena-Utiel\",\"03208\":\"Cuenca Fernando Zóbel\",\"17000\":\"Madrid Chamartín\",\"60000\":\"Madrid Puerta de Atocha\",\"60600\":\"Albacete Los Llanos\",\"60911\":\"Alicante\",\"15100\":\"León\",\"14100\":\"Palencia\",\"10600\":\"Valladolid Campo Grande\",\"11014\":\"Burgos Rosa Manzano\",\"61200\":\"Murcia del Carmen\",\"08004\":\"Segovia Guiomar\",\"65000\":\"València Nord\",\"65300\":\"Castelló\"}; $atan := function($z){ 0.7853981634 * $z - $z * ($abs($z) - 1) * (0.2447 + 0.0663 * $abs($z)) }; $rumbo := function($la1, $lo1, $la2, $lo2){ ( $x := ($lo2 - $lo1) * 0.766; $y := $la2 - $la1; $r := $abs($x) <= $abs($y) ? ( $y = 0 ? 0 : ( $a := $atan($abs($x) / $abs($y)); $y > 0 ? ($x >= 0 ? $a : -$a) : ($x >= 0 ? 3.1415926536 - $a : $a - 3.1415926536) ) ) : ( $a := $atan($abs($y) / $abs($x)); $x > 0 ? 1.5707963268 - ($y >= 0 ? $a : -$a) : -1.5707963268 + ($y >= 0 ? $a : -$a) ); $round(($r * 57.2957795 + 360) % 360) ) }; $v := [trenes[(codOrigen='03216' and codDestino='17000') or (codOrigen='17000' and codDestino='03216')].{\"tren\": codComercial, \"tipo\": $lookup($t, $string(codProduct)) ? $lookup($t, $string(codProduct)) : \"Renfe\", \"sentido\": codOrigen = '03216' ? \"Valencia → Madrid\" : \"Madrid → Valencia\", \"retraso\": $number(ultRetraso), \"tipo_n\": $string(codProduct) = '28' ? 1 : 0, \"etiqueta\": codComercial & \" \" & ($number(ultRetraso) > 0 ? \"+\" : \"\") & ultRetraso & \"'\", \"rumbo\": $rumbo(latitud, longitud, codOrigen = '03216' ? 40.47423 : 39.45986, codOrigen = '03216' ? -3.68151 : -0.3823), \"giro\": (360 - $rumbo(latitud, longitud, codOrigen = '03216' ? 40.47423 : 39.45986, codOrigen = '03216' ? -3.68151 : -0.3823)) % 360, \"lat\": latitud, \"lon\": longitud, \"proxima\": $lookup($n, codEstSig) ? $lookup($n, codEstSig) : codEstSig, \"hora_proxima\": $substring(horaLlegadaSigEst, 11, 5), \"actualizado\": $$.fechaActualizacion, \"ahora_min\": $number($substring($$.fechaActualizacion, 11, 2)) * 60 + $number($substring($$.fechaActualizacion, 14, 2))}]; [$v^(>retraso)] )",
           "columns": [
             {
               "selector": "tren",
