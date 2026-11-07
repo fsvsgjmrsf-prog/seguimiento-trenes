@@ -602,7 +602,7 @@
           "filters": []
         }
       ],
-      "description": "Cada parada de los trenes del trayecto que circulan ahora. Hora estimada = prevista + retraso actual. Las paradas ya pasadas salen con el texto en gris; en azul, la próxima (llegada en menos de 20 min). Usa el filtro de la columna Tren para ver uno solo.",
+      "description": "Cada parada de los trenes del trayecto que circulan ahora. Hora estimada = prevista + retraso actual. Las paradas ya pasadas salen con el texto en gris; en azul, la próxima (llegada en menos de 20 min). Tipo en morado: AVE; en turquesa: AVLO. Usa el filtro de la columna Tren para ver uno solo.",
       "transformations": [
         {
           "id": "joinByField",
@@ -712,6 +712,53 @@
               {
                 "id": "unit",
                 "value": "time:HH:mm"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tipo"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^AVLO",
+                      "result": {
+                        "color": "#00A9A5",
+                        "index": 0
+                      }
+                    }
+                  },
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^AVE",
+                      "result": {
+                        "color": "#8A1F6E",
+                        "index": 1
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "text"
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
               }
             ]
           },
@@ -2141,8 +2188,55 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byName",
-              "options": "medio"
+              "id": "byRegexp",
+              "options": "^(tren|Tren)$"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^AVLO",
+                      "result": {
+                        "color": "#00A9A5",
+                        "index": 0
+                      }
+                    }
+                  },
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^AVE",
+                      "result": {
+                        "color": "#8A1F6E",
+                        "index": 1
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "text"
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text",
+                  "applyToRow": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "^(medio|Retraso medio)$"
             },
             "properties": [
               {
@@ -2184,8 +2278,8 @@
           },
           {
             "matcher": {
-              "id": "byName",
-              "options": "maximo"
+              "id": "byRegexp",
+              "options": "^(maximo|Peor retraso)$"
             },
             "properties": [
               {
@@ -2227,8 +2321,8 @@
           },
           {
             "matcher": {
-              "id": "byName",
-              "options": "puntual"
+              "id": "byRegexp",
+              "options": "^(puntual|Puntual)$"
             },
             "properties": [
               {
@@ -2369,8 +2463,8 @@
           },
           {
             "matcher": {
-              "id": "byName",
-              "options": "medio"
+              "id": "byRegexp",
+              "options": "^(medio)$"
             },
             "properties": [
               {
@@ -2412,8 +2506,8 @@
           },
           {
             "matcher": {
-              "id": "byName",
-              "options": "maximo"
+              "id": "byRegexp",
+              "options": "^(maximo)$"
             },
             "properties": [
               {
