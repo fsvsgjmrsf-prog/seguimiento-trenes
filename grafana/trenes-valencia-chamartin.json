@@ -1522,7 +1522,7 @@
             "method": "GET",
             "data": ""
           },
-          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$l.{\"llegada\": fecha & \"T\" & (llegada_prevista != \"\" ? llegada_prevista : \"12:00\") & \":00+01:00\", \"retraso\": retraso_final, \"tren\": tipo & \" \" & tren, \"sentido\": sentido}] )",
+          "root_selector": "( $l := [$each(viajes, function($v){$v})][estado='llegado' and $exists(retraso_final)]; [$l.{\"llegada\": fecha & \"T\" & (llegada_prevista != \"\" ? llegada_prevista : \"12:00\") & \":00+01:00\", \"puntual\": retraso_final <= 5 ? retraso_final : null, \"leve\": retraso_final > 5 and retraso_final <= 15 ? retraso_final : null, \"grave\": retraso_final > 15 ? retraso_final : null, \"tren\": tipo & \" \" & tren, \"sentido\": sentido}] )",
           "columns": [
             {
               "selector": "llegada",
@@ -1530,8 +1530,18 @@
               "type": "timestamp"
             },
             {
-              "selector": "retraso",
-              "text": "retraso",
+              "selector": "puntual",
+              "text": "Puntual (hasta 5 min)",
+              "type": "number"
+            },
+            {
+              "selector": "leve",
+              "text": "Retraso de 6 a 15 min",
+              "type": "number"
+            },
+            {
+              "selector": "grave",
+              "text": "Retraso de 16 min o más",
               "type": "number"
             },
             {
@@ -1548,7 +1558,7 @@
           "filters": []
         }
       ],
-      "description": "Un punto por tren llegado. Líneas de referencia en 5 y 15 minutos.",
+      "description": "Un punto por tren llegado: verde si llegó puntual (5 min o menos), amarillo entre 6 y 15 min, rojo con 16 min o más. Las líneas discontinuas marcan esos límites.",
       "fieldConfig": {
         "defaults": {
           "unit": "m",
@@ -1588,11 +1598,59 @@
             "spanNulls": false
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Puntual (hasta 5 min)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Retraso de 6 a 15 min"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "#EAB839"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Retraso de 16 min o más"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          }
+        ]
       },
       "options": {
         "legend": {
-          "showLegend": false
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
         },
         "tooltip": {
           "mode": "single"
