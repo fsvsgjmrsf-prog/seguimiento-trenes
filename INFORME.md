@@ -1,6 +1,6 @@
 # 🚄 Puntualidad Valencia J. Sorolla ⇄ Madrid Chamartín
 
-Última actualización: **2026-11-09T13:45+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.
+Última actualización: **2026-11-09T14:00+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.
 
 El retraso de cada tren es el último que publica Renfe antes de llegar a la estación de destino.
 
@@ -17,7 +17,7 @@ Iryo usa las mismas vías, así que se miran los trenes de Renfe que salen de Va
 
 Aún hay pocos datos en tu franja para sacar conclusiones.
 
-Ahora mismo en ruta en tu franja: AVE 05721 (0 min), AVE 05131 (-1 min)
+Ahora mismo en ruta en tu franja: AVE 05131 (0 min), AVE 05721 (0 min)
 
 ## Resumen general
 
@@ -80,5 +80,5 @@ El número de tren se repite cada día, así que puedes ver cómo suele ir el qu
 |---|---|---|---|
 | AVE 05120 | Madrid Chamartín → Valencia J. Sorolla | 12:30 | 10 min |
 | AVE 05721 | Valencia J. Sorolla → Madrid Chamartín | 12:35 | 0 min |
-| AVE 05131 | Valencia J. Sorolla → Madrid Chamartín | 13:32 | -1 min |
+| AVE 05131 | Valencia J. Sorolla → Madrid Chamartín | 13:32 | 0 min |
 
