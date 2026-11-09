@@ -1,5 +1,5 @@
 {
- "ultima_actualizacion": "2026-11-09T23:15+01:00",
+ "ultima_actualizacion": "2026-11-09T23:30+01:00",
  "version": 1,
  "viajes": {
   "2026-11-06_05080": {
@@ -861,7 +861,7 @@
    "ultima_obs": "2026-11-09T18:00+01:00"
   },
   "2026-11-09_05210": {
-   "estado": "en_ruta",
+   "estado": "llegado",
    "fecha": "2026-11-09",
    "llegada_prevista": "23:05",
    "observaciones": 8,
@@ -874,7 +874,7 @@
    "ultima_obs": "2026-11-09T23:00+01:00"
   },
   "2026-11-09_05215": {
-   "estado": "en_ruta",
+   "estado": "llegado",
    "fecha": "2026-11-09",
    "llegada_prevista": "23:18",
    "observaciones": 8,
