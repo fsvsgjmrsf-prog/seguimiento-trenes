@@ -1,5 +1,5 @@
 {
- "ultima_actualizacion": "2026-11-09T20:30+01:00",
+ "ultima_actualizacion": "2026-11-09T20:45+01:00",
  "version": 1,
  "viajes": {
   "2026-11-06_05080": {
@@ -838,14 +838,14 @@
    "estado": "en_ruta",
    "fecha": "2026-11-09",
    "llegada_prevista": "21:38",
-   "observaciones": 4,
-   "retraso_final": -3,
+   "observaciones": 5,
+   "retraso_final": -2,
    "retraso_max": 1,
    "salida_prevista": "19:42",
    "sentido": "Valencia J. Sorolla → Madrid Chamartín",
    "tipo": "AVE",
    "tren": "05191",
-   "ultima_obs": "2026-11-09T20:30+01:00"
+   "ultima_obs": "2026-11-09T20:45+01:00"
   },
   "2026-11-09_05200": {
    "estado": "llegado",
