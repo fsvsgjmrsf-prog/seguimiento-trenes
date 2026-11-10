@@ -1,6 +1,6 @@
 # 🚄 Puntualidad Valencia J. Sorolla ⇄ Madrid Chamartín
 
-Última actualización: **2026-11-10T23:15+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.
+Última actualización: **2026-11-10T23:30+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.
 
 El retraso de cada tren es el último que publica Renfe antes de llegar a la estación de destino.
 
@@ -22,14 +22,14 @@ Iryo usa las mismas vías, así que se miran los trenes de Renfe que salen de Va
 | Sentido | Trenes | Puntual (≤5 min) | 6–15 min | 16–30 min | 31–60 min | Más de 60 min | Retraso medio | Máximo |
 |---|---|---|---|---|---|---|---|---|
 | Madrid Chamartín → Valencia J. Sorolla | 40 | 48 % | 38 % | 8 % | 8 % | 0 % | 9.2 min | 56 min |
-| Valencia J. Sorolla → Madrid Chamartín | 35 | 77 % | 17 % | 3 % | 3 % | 0 % | 2.5 min | 48 min |
-| **Total** | 75 | 61 % | 28 % | 5 % | 5 % | 0 % | 6.1 min | 56 min |
+| Valencia J. Sorolla → Madrid Chamartín | 36 | 78 % | 17 % | 3 % | 3 % | 0 % | 2.4 min | 48 min |
+| **Total** | 76 | 62 % | 28 % | 5 % | 5 % | 0 % | 6.0 min | 56 min |
 
 ## Día a día
 
 | Fecha | Trenes | Puntuales | Retraso medio | Peor tren |
 |---|---|---|---|---|
-| 2026-11-10 | 5 | 40 % | 20.2 min | AVE 05170 (56 min) |
+| 2026-11-10 | 6 | 50 % | 16.7 min | AVE 05170 (56 min) |
 | 2026-11-09 | 21 | 52 % | 6.2 min | AVE 05170 (34 min) |
 | 2026-11-08 | 21 | 57 % | 8.5 min | AVLO 05215 (48 min) |
 | 2026-11-07 | 16 | 56 % | 4.1 min | AVLO 05064 (18 min) |
@@ -72,11 +72,5 @@ El número de tren se repite cada día, así que puedes ver cómo suele ir el qu
 | 17:42 | 19:38 | AVE 05171 | 3 | 100 % | -6.0 min | 0 min |
 | 18:32 | 20:38 | AVE 05181 | 4 | 100 % | 1.2 min | 2 min |
 | 19:42 | 21:38 | AVE 05191 | 3 | 100 % | -4.3 min | 0 min |
-| 21:12 | 23:18 | AVLO 05215 | 4 | 50 % | 14.8 min | 48 min |
-
-## Ahora mismo en ruta
-
-| Tren | Sentido | Salida | Retraso actual |
-|---|---|---|---|
-| AVLO 05215 | Valencia J. Sorolla → Madrid Chamartín | 21:12 | -1 min |
+| 21:12 | 23:18 | AVLO 05215 | 5 | 60 % | 11.6 min | 48 min |
 
