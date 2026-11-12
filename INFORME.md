@@ -1,6 +1,6 @@
 # 🚄 Puntualidad Valencia J. Sorolla ⇄ Madrid Chamartín
 
-Última actualización: **2026-11-12T23:30+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.
+Última actualización: **2026-11-12T23:45+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.
 
 El retraso de cada tren es el último que publica Renfe antes de llegar a la estación de destino.
 
@@ -22,14 +22,14 @@ Iryo usa las mismas vías, así que se miran los trenes de Renfe que salen de Va
 | Sentido | Trenes | Puntual (≤5 min) | 6–15 min | 16–30 min | 31–60 min | Más de 60 min | Retraso medio | Máximo |
 |---|---|---|---|---|---|---|---|---|
 | Madrid Chamartín → Valencia J. Sorolla | 63 | 52 % | 27 % | 14 % | 6 % | 0 % | 8.9 min | 56 min |
-| Valencia J. Sorolla → Madrid Chamartín | 57 | 75 % | 18 % | 5 % | 2 % | 0 % | 2.6 min | 48 min |
-| **Total** | 120 | 63 % | 22 % | 10 % | 4 % | 0 % | 5.9 min | 56 min |
+| Valencia J. Sorolla → Madrid Chamartín | 58 | 74 % | 19 % | 5 % | 2 % | 0 % | 2.7 min | 48 min |
+| **Total** | 121 | 63 % | 23 % | 10 % | 4 % | 0 % | 6.0 min | 56 min |
 
 ## Día a día
 
 | Fecha | Trenes | Puntuales | Retraso medio | Peor tren |
 |---|---|---|---|---|
-| 2026-11-12 | 22 | 73 % | 4.3 min | AVE 05101 (29 min) |
+| 2026-11-12 | 23 | 70 % | 4.6 min | AVE 05101 (29 min) |
 | 2026-11-11 | 22 | 59 % | 7.3 min | AVE 05170 (42 min) |
 | 2026-11-10 | 6 | 50 % | 16.7 min | AVE 05170 (56 min) |
 | 2026-11-09 | 21 | 52 % | 6.2 min | AVE 05170 (34 min) |
@@ -76,11 +76,5 @@ El número de tren se repite cada día, así que puedes ver cómo suele ir el qu
 | 17:42 | 19:38 | AVE 05171 | 5 | 100 % | -5.8 min | 0 min |
 | 18:32 | 20:38 | AVE 05181 | 6 | 100 % | 1.7 min | 3 min |
 | 19:42 | 21:38 | AVE 05191 | 5 | 100 % | -4.6 min | 0 min |
-| 21:12 | 23:18 | AVLO 05215 | 6 | 50 % | 12.7 min | 48 min |
-
-## Ahora mismo en ruta
-
-| Tren | Sentido | Salida | Retraso actual |
-|---|---|---|---|
-| AVLO 05215 | Valencia J. Sorolla → Madrid Chamartín | 21:12 | 11 min |
+| 21:12 | 23:18 | AVLO 05215 | 7 | 43 % | 12.4 min | 48 min |
 
