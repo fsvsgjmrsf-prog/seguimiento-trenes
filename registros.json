@@ -1,5 +1,5 @@
 {
- "ultima_actualizacion": "2026-11-12T19:30+01:00",
+ "ultima_actualizacion": "2026-11-12T19:45+01:00",
  "version": 1,
  "viajes": {
   "2026-11-06_05080": {
@@ -1446,7 +1446,7 @@
    "ultima_obs": "2026-11-12T18:15+01:00"
   },
   "2026-11-12_05170": {
-   "estado": "en_ruta",
+   "estado": "llegado",
    "fecha": "2026-11-12",
    "llegada_prevista": "19:24",
    "observaciones": 7,
@@ -1462,40 +1462,53 @@
    "estado": "en_ruta",
    "fecha": "2026-11-12",
    "llegada_prevista": "19:38",
-   "observaciones": 7,
-   "retraso_final": -6,
+   "observaciones": 8,
+   "retraso_final": -5,
    "retraso_max": 1,
    "salida_prevista": "17:42",
    "sentido": "Valencia J. Sorolla → Madrid Chamartín",
    "tipo": "AVE",
    "tren": "05171",
-   "ultima_obs": "2026-11-12T19:15+01:00"
+   "ultima_obs": "2026-11-12T19:45+01:00"
   },
   "2026-11-12_05181": {
    "estado": "en_ruta",
    "fecha": "2026-11-12",
    "llegada_prevista": "20:38",
-   "observaciones": 3,
-   "retraso_final": -1,
-   "retraso_max": 0,
+   "observaciones": 4,
+   "retraso_final": 7,
+   "retraso_max": 7,
    "salida_prevista": "18:32",
    "sentido": "Valencia J. Sorolla → Madrid Chamartín",
    "tipo": "AVE",
    "tren": "05181",
-   "ultima_obs": "2026-11-12T19:15+01:00"
+   "ultima_obs": "2026-11-12T19:45+01:00"
   },
   "2026-11-12_05184": {
    "estado": "en_ruta",
    "fecha": "2026-11-12",
    "llegada_prevista": "20:34",
-   "observaciones": 2,
-   "retraso_final": 20,
+   "observaciones": 3,
+   "retraso_final": 18,
    "retraso_max": 22,
    "salida_prevista": "18:30",
    "sentido": "Madrid Chamartín → Valencia J. Sorolla",
    "tipo": "AVLO",
    "tren": "05184",
-   "ultima_obs": "2026-11-12T19:30+01:00"
+   "ultima_obs": "2026-11-12T19:45+01:00"
+  },
+  "2026-11-12_05191": {
+   "estado": "en_ruta",
+   "fecha": "2026-11-12",
+   "llegada_prevista": "21:38",
+   "observaciones": 1,
+   "retraso_final": 1,
+   "retraso_max": 1,
+   "salida_prevista": "19:42",
+   "sentido": "Valencia J. Sorolla → Madrid Chamartín",
+   "tipo": "AVE",
+   "tren": "05191",
+   "ultima_obs": "2026-11-12T19:45+01:00"
   },
   "2026-11-12_05200": {
    "estado": "llegado",
