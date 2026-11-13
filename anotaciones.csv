@@ -10,3 +10,5 @@
 # Ejemplo (quita el # para usarlo):
 # 2026-11-13,Iryo,06157,VLC-MAD,13:57,15:52,4
 fecha,operador,tren,sentido,salida,llegada,retraso
+2026-11-13,Ouigo,06563,VLC-MAD,,17:53,37
+2026-11-13,Iryo,06163,VLC-MAD,,18:08,9
