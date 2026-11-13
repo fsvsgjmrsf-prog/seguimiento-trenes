@@ -1,5 +1,5 @@
 {
- "ultima_actualizacion": "2026-11-13T20:00+01:00",
+ "ultima_actualizacion": "2026-11-13T20:15+01:00",
  "version": 1,
  "viajes": {
   "2026-11-06_05080": {
@@ -1771,7 +1771,7 @@
    "ultima_obs": "2026-11-13T18:15+01:00"
   },
   "2026-11-13_05170": {
-   "estado": "en_ruta",
+   "estado": "llegado",
    "fecha": "2026-11-13",
    "llegada_prevista": "19:24",
    "observaciones": 20,
@@ -1800,53 +1800,53 @@
    "estado": "en_ruta",
    "fecha": "2026-11-13",
    "llegada_prevista": "20:38",
-   "observaciones": 7,
-   "retraso_final": 1,
+   "observaciones": 8,
+   "retraso_final": 0,
    "retraso_max": 2,
    "salida_prevista": "18:32",
    "sentido": "Valencia J. Sorolla → Madrid Chamartín",
    "tipo": "AVE",
    "tren": "05181",
-   "ultima_obs": "2026-11-13T20:00+01:00"
+   "ultima_obs": "2026-11-13T20:15+01:00"
   },
   "2026-11-13_05184": {
    "estado": "en_ruta",
    "fecha": "2026-11-13",
    "llegada_prevista": "20:34",
-   "observaciones": 7,
+   "observaciones": 8,
    "retraso_final": 0,
    "retraso_max": 1,
    "salida_prevista": "18:30",
    "sentido": "Madrid Chamartín → Valencia J. Sorolla",
    "tipo": "AVLO",
    "tren": "05184",
-   "ultima_obs": "2026-11-13T20:00+01:00"
+   "ultima_obs": "2026-11-13T20:15+01:00"
   },
   "2026-11-13_05191": {
    "estado": "en_ruta",
    "fecha": "2026-11-13",
    "llegada_prevista": "21:38",
-   "observaciones": 3,
-   "retraso_final": -1,
+   "observaciones": 4,
+   "retraso_final": -3,
    "retraso_max": 2,
    "salida_prevista": "19:42",
    "sentido": "Valencia J. Sorolla → Madrid Chamartín",
    "tipo": "AVE",
    "tren": "05191",
-   "ultima_obs": "2026-11-13T20:00+01:00"
+   "ultima_obs": "2026-11-13T20:15+01:00"
   },
   "2026-11-13_05200": {
    "estado": "en_ruta",
    "fecha": "2026-11-13",
    "llegada_prevista": "22:24",
-   "observaciones": 10,
-   "retraso_final": 33,
-   "retraso_max": 33,
+   "observaciones": 11,
+   "retraso_final": 40,
+   "retraso_max": 40,
    "salida_prevista": "20:30",
    "sentido": "Madrid Chamartín → Valencia J. Sorolla",
    "tipo": "AVE",
    "tren": "05200",
-   "ultima_obs": "2026-11-13T20:00+01:00"
+   "ultima_obs": "2026-11-13T20:15+01:00"
   },
   "2026-11-13_05721": {
    "estado": "llegado",
