@@ -1,0 +1,12 @@
+# Trenes apuntados a mano (Iryo, Ouigo u otros que no salen en los datos de Renfe).
+# Una línea por tren y día. Las líneas que empiezan por # se ignoran.
+#   fecha     : AAAA-MM-DD
+#   operador  : Iryo u Ouigo
+#   tren      : número del tren (si no lo sabes, pon la hora de salida, p. ej. 1357)
+#   sentido   : VLC-MAD (Valencia → Madrid) o MAD-VLC (Madrid → Valencia)
+#   salida    : hora prevista de salida, HH:MM
+#   llegada   : hora prevista de llegada, HH:MM
+#   retraso   : minutos de retraso al llegar (0 si llegó a su hora, negativo si llegó antes)
+# Ejemplo (quita el # para usarlo):
+# 2026-11-13,Iryo,06157,VLC-MAD,13:57,15:52,4
+fecha,operador,tren,sentido,salida,llegada,retraso

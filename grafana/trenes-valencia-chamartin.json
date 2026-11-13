@@ -772,6 +772,26 @@
                         "index": 1
                       }
                     }
+                  },
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^Iryo",
+                      "result": {
+                        "color": "#C8102E",
+                        "index": 2
+                      }
+                    }
+                  },
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^Ouigo",
+                      "result": {
+                        "color": "#E6007E",
+                        "index": 3
+                      }
+                    }
                   }
                 ]
               },
@@ -2299,6 +2319,26 @@
                       "result": {
                         "color": "#8A1F6E",
                         "index": 1
+                      }
+                    }
+                  },
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^Iryo",
+                      "result": {
+                        "color": "#C8102E",
+                        "index": 2
+                      }
+                    }
+                  },
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^Ouigo",
+                      "result": {
+                        "color": "#E6007E",
+                        "index": 3
                       }
                     }
                   }

@@ -248,7 +248,7 @@ def informe(registros):
 
     l = ["# 🚄 Puntualidad Valencia J. Sorolla ⇄ Madrid Chamartín", ""]
     l.append(f"Última actualización: **{registros.get('ultima_actualizacion', '–')}** (hora de Madrid). "
-             "Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). No incluye Ouigo ni Iryo.")
+             "Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). Iryo y Ouigo solo aparecen si se apuntan a mano en anotaciones.csv.")
     l.append("")
     l.append("El retraso de cada tren es el último que publica Renfe antes de llegar a la estación de destino.")
     l.append("")
@@ -308,6 +308,54 @@ def informe(registros):
     return "\n".join(l)
 
 
+ANOTACIONES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "anotaciones.csv")
+SENTIDOS = {
+    "VLC-MAD": f"{NOMBRES[VALENCIA]} → {NOMBRES[CHAMARTIN]}",
+    "MAD-VLC": f"{NOMBRES[CHAMARTIN]} → {NOMBRES[VALENCIA]}",
+}
+
+
+def anotaciones(registros, ruta=ANOTACIONES):
+    """Añade los trenes apuntados a mano (Iryo, Ouigo...) desde anotaciones.csv.
+
+    Formato de cada línea: fecha,operador,tren,sentido,salida,llegada,retraso
+    p. ej. 2026-11-13,Iryo,06157,VLC-MAD,13:57,15:52,4
+    """
+    import csv
+    viajes = registros.setdefault("viajes", {})
+    nuevas = {}
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            filas = [l for l in f if l.strip() and not l.lstrip().startswith("#")]
+    except OSError:
+        filas = []
+    for n, fila in enumerate(csv.reader(filas), 1):
+        fila = [c.strip() for c in fila]
+        if fila and fila[0].lower() == "fecha":
+            continue
+        try:
+            fecha, operador, tren, sentido, salida, llegada, retraso = fila[:7]
+            datetime.strptime(fecha, "%Y-%m-%d")
+            retraso = int(retraso)
+            sentido = SENTIDOS[sentido.upper().replace(" ", "")]
+        except (ValueError, KeyError) as e:
+            print(f"Aviso: anotación {n} ignorada ({fila}): {e}")
+            continue
+        operador = operador.strip().capitalize() if operador.lower() != "ouigo" else "Ouigo"
+        nuevas[f"{fecha}_{operador}_{tren}"] = {
+            "fecha": fecha, "tren": tren, "tipo": operador, "sentido": sentido,
+            "salida_prevista": salida, "llegada_prevista": llegada,
+            "retraso_final": retraso, "retraso_max": retraso,
+            "observaciones": 1, "estado": "llegado", "fuente": "manual",
+        }
+    # Las anotaciones borradas o corregidas en el CSV se reflejan tal cual.
+    for clave in [c for c, v in viajes.items() if v.get("fuente") == "manual"]:
+        del viajes[clave]
+    viajes.update(nuevas)
+    if nuevas:
+        print(f"Anotaciones manuales: {len(nuevas)}")
+
+
 def main():
     carpeta = sys.argv[1] if len(sys.argv) > 1 else "."
     ruta_registros = os.path.join(carpeta, "registros.json")
@@ -325,6 +373,7 @@ def main():
     else:
         print("Seguimiento terminado; solo se regenera el informe.")
 
+    anotaciones(registros)
     with open(ruta_registros, "w", encoding="utf-8") as f:
         json.dump(registros, f, ensure_ascii=False, indent=1, sort_keys=True)
     texto = informe(registros)
