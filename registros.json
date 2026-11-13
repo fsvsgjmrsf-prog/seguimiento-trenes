@@ -1,5 +1,5 @@
 {
- "ultima_actualizacion": "2026-11-13T17:45+01:00",
+ "ultima_actualizacion": "2026-11-13T18:00+01:00",
  "version": 1,
  "viajes": {
   "2026-11-06_05080": {
@@ -1745,7 +1745,7 @@
    "ultima_obs": "2026-11-13T16:30+01:00"
   },
   "2026-11-13_05155": {
-   "estado": "en_ruta",
+   "estado": "llegado",
    "fecha": "2026-11-13",
    "llegada_prevista": "17:38",
    "observaciones": 8,
@@ -1761,40 +1761,53 @@
    "estado": "en_ruta",
    "fecha": "2026-11-13",
    "llegada_prevista": "18:24",
-   "observaciones": 5,
+   "observaciones": 6,
    "retraso_final": 2,
    "retraso_max": 3,
    "salida_prevista": "16:30",
    "sentido": "Madrid Chamartín → Valencia J. Sorolla",
    "tipo": "AVE",
    "tren": "05160",
-   "ultima_obs": "2026-11-13T17:45+01:00"
+   "ultima_obs": "2026-11-13T18:00+01:00"
   },
   "2026-11-13_05170": {
    "estado": "en_ruta",
    "fecha": "2026-11-13",
    "llegada_prevista": "19:24",
-   "observaciones": 11,
-   "retraso_final": 31,
+   "observaciones": 12,
+   "retraso_final": 27,
    "retraso_max": 31,
    "salida_prevista": "17:30",
    "sentido": "Madrid Chamartín → Valencia J. Sorolla",
    "tipo": "AVE",
    "tren": "05170",
-   "ultima_obs": "2026-11-13T17:45+01:00"
+   "ultima_obs": "2026-11-13T18:00+01:00"
   },
   "2026-11-13_05171": {
    "estado": "en_ruta",
    "fecha": "2026-11-13",
    "llegada_prevista": "19:38",
-   "observaciones": 1,
-   "retraso_final": 2,
+   "observaciones": 2,
+   "retraso_final": 0,
    "retraso_max": 2,
    "salida_prevista": "17:42",
    "sentido": "Valencia J. Sorolla → Madrid Chamartín",
    "tipo": "AVE",
    "tren": "05171",
-   "ultima_obs": "2026-11-13T17:45+01:00"
+   "ultima_obs": "2026-11-13T18:00+01:00"
+  },
+  "2026-11-13_05200": {
+   "estado": "en_ruta",
+   "fecha": "2026-11-13",
+   "llegada_prevista": "22:24",
+   "observaciones": 1,
+   "retraso_final": 3,
+   "retraso_max": 3,
+   "salida_prevista": "20:30",
+   "sentido": "Madrid Chamartín → Valencia J. Sorolla",
+   "tipo": "AVE",
+   "tren": "05200",
+   "ultima_obs": "2026-11-13T18:00+01:00"
   },
   "2026-11-13_05721": {
    "estado": "llegado",
