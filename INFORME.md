@@ -1,6 +1,6 @@
 # 🚄 Puntualidad Valencia J. Sorolla ⇄ Madrid Chamartín
 
-Última actualización: **2026-11-15T19:45+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). Iryo y Ouigo solo aparecen si se apuntan a mano en anotaciones.csv.
+Última actualización: **2026-11-15T20:00+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). Iryo y Ouigo solo aparecen si se apuntan a mano en anotaciones.csv.
 
 El retraso de cada tren es el último que publica Renfe antes de llegar a la estación de destino.
 
@@ -22,14 +22,14 @@ Iryo usa las mismas vías, así que se miran los trenes de Renfe que salen de Va
 | Sentido | Trenes | Puntual (≤5 min) | 6–15 min | 16–30 min | 31–60 min | Más de 60 min | Retraso medio | Máximo |
 |---|---|---|---|---|---|---|---|---|
 | Madrid Chamartín → Valencia J. Sorolla | 92 | 55 % | 27 % | 13 % | 4 % | 0 % | 8.1 min | 56 min |
-| Valencia J. Sorolla → Madrid Chamartín | 86 | 78 % | 15 % | 5 % | 2 % | 0 % | 2.6 min | 48 min |
-| **Total** | 178 | 66 % | 21 % | 9 % | 3 % | 0 % | 5.4 min | 56 min |
+| Valencia J. Sorolla → Madrid Chamartín | 87 | 78 % | 15 % | 5 % | 2 % | 0 % | 2.5 min | 48 min |
+| **Total** | 179 | 66 % | 21 % | 9 % | 3 % | 0 % | 5.4 min | 56 min |
 
 ## Día a día
 
 | Fecha | Trenes | Puntuales | Retraso medio | Peor tren |
 |---|---|---|---|---|
-| 2026-11-15 | 14 | 86 % | 2.5 min | AVLO 05064 (6 min) |
+| 2026-11-15 | 15 | 87 % | 1.8 min | AVLO 05064 (6 min) |
 | 2026-11-14 | 16 | 81 % | 3.0 min | AVE 05170 (24 min) |
 | 2026-11-13 | 27 | 63 % | 6.0 min | Ouigo 06563 (37 min) |
 | 2026-11-12 | 23 | 70 % | 4.6 min | AVE 05101 (29 min) |
@@ -78,7 +78,7 @@ El número de tren se repite cada día, así que puedes ver cómo suele ir el qu
 | 13:32 | 15:38 | AVE 05131 | 8 | 75 % | 2.9 min | 9 min |
 | 15:32 | 17:38 | AVLO 05155 | 5 | 60 % | 2.8 min | 10 min |
 | 16:12 | 18:08 | Iryo 06163 | 1 | 0 % | 9.0 min | 9 min |
-| 17:42 | 19:38 | AVE 05171 | 6 | 100 % | -5.5 min | 0 min |
+| 17:42 | 19:38 | AVE 05171 | 7 | 100 % | -5.9 min | 0 min |
 | 18:32 | 20:38 | AVE 05181 | 8 | 100 % | 1.2 min | 3 min |
 | 19:42 | 21:38 | AVE 05191 | 6 | 100 % | -4.8 min | 0 min |
 | 21:12 | 23:18 | AVLO 05215 | 9 | 44 % | 12.3 min | 48 min |
@@ -87,9 +87,8 @@ El número de tren se repite cada día, así que puedes ver cómo suele ir el qu
 
 | Tren | Sentido | Salida | Retraso actual |
 |---|---|---|---|
-| AVE 05171 | Valencia J. Sorolla → Madrid Chamartín | 17:42 | -8 min |
 | AVLO 05184 | Madrid Chamartín → Valencia J. Sorolla | 18:30 | 1 min |
-| AVE 05181 | Valencia J. Sorolla → Madrid Chamartín | 18:32 | 3 min |
-| AVE 05191 | Valencia J. Sorolla → Madrid Chamartín | 19:42 | 1 min |
-| AVE 05200 | Madrid Chamartín → Valencia J. Sorolla | 20:30 | 7 min |
+| AVE 05181 | Valencia J. Sorolla → Madrid Chamartín | 18:32 | 1 min |
+| AVE 05191 | Valencia J. Sorolla → Madrid Chamartín | 19:42 | -2 min |
+| AVE 05200 | Madrid Chamartín → Valencia J. Sorolla | 20:30 | 6 min |
 
