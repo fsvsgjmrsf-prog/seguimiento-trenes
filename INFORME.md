@@ -1,6 +1,6 @@
 # 🚄 Puntualidad Valencia J. Sorolla ⇄ Madrid Chamartín
 
-Última actualización: **2026-11-18T15:45+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). Iryo y Ouigo solo aparecen si se apuntan a mano en anotaciones.csv.
+Última actualización: **2026-11-18T16:01+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). Iryo y Ouigo solo aparecen si se apuntan a mano en anotaciones.csv.
 
 El retraso de cada tren es el último que publica Renfe antes de llegar a la estación de destino.
 
@@ -17,7 +17,7 @@ Iryo usa las mismas vías, así que se miran los trenes de Renfe que salen de Va
 
 🟡 Hay retrasos de vez en cuando a esa hora: deja algo de margen si tienes una cita.
 
-Ahora mismo en ruta en tu franja: AVE 05131 (72 min)
+Ahora mismo en ruta en tu franja: AVE 05131 (74 min)
 
 ## Resumen general
 
@@ -92,8 +92,9 @@ El número de tren se repite cada día, así que puedes ver cómo suele ir el qu
 
 | Tren | Sentido | Salida | Retraso actual |
 |---|---|---|---|
-| AVE 05131 | Valencia J. Sorolla → Madrid Chamartín | 13:32 | 72 min |
-| AVE 05140 | Madrid Chamartín → Valencia J. Sorolla | 14:30 | 9 min |
-| AVE 05750 | Madrid Chamartín → Valencia J. Sorolla | 15:30 | 1 min |
+| AVE 05131 | Valencia J. Sorolla → Madrid Chamartín | 13:32 | 74 min |
+| AVE 05140 | Madrid Chamartín → Valencia J. Sorolla | 14:30 | 10 min |
+| AVE 05750 | Madrid Chamartín → Valencia J. Sorolla | 15:30 | 3 min |
+| AVLO 05155 | Valencia J. Sorolla → Madrid Chamartín | 15:32 | 12 min |
 | AVE 05170 | Madrid Chamartín → Valencia J. Sorolla | 17:30 | 5 min |
 
