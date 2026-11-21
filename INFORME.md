@@ -1,12 +1,10 @@
 # 🚄 Puntualidad Valencia J. Sorolla ⇄ Madrid Chamartín
 
-Última actualización: **2026-11-20T23:45+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). Iryo y Ouigo solo aparecen si se apuntan a mano en anotaciones.csv.
+Última actualización: **2026-11-21T02:43+01:00** (hora de Madrid). Datos en tiempo real de Renfe (AVE, AVLO, Alvia…). Iryo y Ouigo solo aparecen si se apuntan a mano en anotaciones.csv.
 
 El retraso de cada tren es el último que publica Renfe antes de llegar a la estación de destino.
 
 ## 🎯 Tu viaje: sábado 21/11, Iryo de las 13:57 Valencia → Madrid Chamartín
-
-Faltan **1 días**.
 
 Iryo usa las mismas vías, así que se miran los trenes de Renfe que salen de Valencia entre las 12:27 y las 15:27. Complétalo con la app de Iryo o la de Adif.
 
